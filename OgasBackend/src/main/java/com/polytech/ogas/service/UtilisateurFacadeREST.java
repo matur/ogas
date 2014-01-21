@@ -25,7 +25,7 @@ import javax.ws.rs.Produces;
  * @author epulapp
  */
 @Stateless
-@Path("com.polytech.ogas.utilisateur")
+@Path("/utilisateur")
 public class UtilisateurFacadeREST extends AbstractFacade<Utilisateur> {
     @PersistenceContext(unitName = "com.polytech_OgasBackend_war_1.0-SNAPSHOTPU")
     private EntityManager em;
@@ -42,26 +42,27 @@ public class UtilisateurFacadeREST extends AbstractFacade<Utilisateur> {
     }
 
     @PUT
-    @Path("{id}")
+    @Path("edit/{id}")
     @Consumes({"application/xml", "application/json"})
     public void edit(@PathParam("id") Short id, Utilisateur entity) {
         super.edit(entity);
     }
 
     @DELETE
-    @Path("{id}")
+    @Path("remove/{id}")
     public void remove(@PathParam("id") Short id) {
         super.remove(super.find(id));
     }
 
     @GET
-    @Path("{id}")
+    @Path("find/{id}")
     @Produces({"application/xml", "application/json"})
     public Utilisateur find(@PathParam("id") Short id) {
         return super.find(id);
     }
 
     @GET
+    @Path("findAll")
     @Override
     @Produces({"application/xml", "application/json"})
     public List<Utilisateur> findAll() {
@@ -69,7 +70,7 @@ public class UtilisateurFacadeREST extends AbstractFacade<Utilisateur> {
     }
 
     @GET
-    @Path("{from}/{to}")
+    @Path("findRange/{from}/{to}")
     @Produces({"application/xml", "application/json"})
     public List<Utilisateur> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
