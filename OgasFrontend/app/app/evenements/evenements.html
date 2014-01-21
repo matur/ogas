@@ -1,0 +1,7 @@
+<h2>Evenements</h2>
+<table ng-table="tableParams" class="table">
+    <tr ng-repeat="event in $data">
+        <td data-title="'Name'">{{event.name}}</td>
+        <td data-title="'Date'">{{event.date}}</td>
+    </tr>
+</table>

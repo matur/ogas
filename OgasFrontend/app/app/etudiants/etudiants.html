@@ -1,4 +1,6 @@
+<h2>Etudiants</h2>
 <table ng-table="tableParams" class="table">
+    <button class='btn btn-default' ng-click="etuAddAlert()">Add Alert</button>
     <tr ng-repeat="user in $data">
         <td data-title="'Name'">{{user.name}}</td>
         <td data-title="'Age'">{{user.age}}</td>
