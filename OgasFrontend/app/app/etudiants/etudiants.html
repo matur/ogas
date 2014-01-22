@@ -1,8 +1,52 @@
-<h2>Etudiants</h2>
-<table ng-table="tableParams" class="table">
-    <button class='btn btn-default' ng-click="etuAddAlert()">Add Alert</button>
-    <tr ng-repeat="user in $data">
-        <td data-title="'Name'">{{user.name}}</td>
-        <td data-title="'Age'">{{user.age}}</td>
-    </tr>
+
+<button ng-click="tableParams.sorting({})" class="btn btn-default pull-right">Clear sorting</button>
+<button ng-click="tableParams.filter({})" class="btn btn-default pull-right">Clear filter</button>
+
+<table ng-table="tableParams" show-filter="true" class="table">
+
+    <tbody ng-repeat="group in $groups">
+        <tr class="ng-table-group">
+            <td colspan="{{$columns.length}}">
+                <a href="" ng-click="group.$hideRows = !group.$hideRows">
+                    <span class="glyphicon" ng-class="{ 'glyphicon-chevron-right': group.$hideRows, 'glyphicon-chevron-down': !group.$hideRows }"></span>
+                    <strong>{{ group.value }}</strong>
+                </a>
+            </td>
+        </tr>
+        <tr ng-hide="group.$hideRows" ng-repeat="p in group.data"
+            id="tr{{p.id}}" ng-class-odd="'odd'" ng-class-even="'even'">
+           
+            <td class="rowTd" data-title="'ID'"          sortable="'id'" filter="{ 'id': 'text' }">{{p.id}}</td>
+            <td class="rowTd" data-title="'Firstname'"   sortable="'fn'" filter="{ 'fn': 'text' }">{{p.fn}}</td>
+            <td class="rowTd" data-title="'Lastname'"    sortable="'ln'" filter="{ 'ln': 'text' }">{{p.ln}}</td>
+            <td class="rowTd" data-title="'Description'" sortable="'dc'" filter="{ 'dc': 'text' }">{{p.dc}}</td>
+            <td class="rowTd" data-title="'Email'"       sortable="'em'" filter="{ 'em': 'text' }">{{p.em}}</td>
+            <td class="rowTd" data-title="'Phone'"       sortable="'ph'" filter="{ 'ph': 'text' }">{{p.ph}}</td>
+            <td class="rowTd" ><input type=button id="editRowBtn{{p.id}}" value="edit"
+                                      ng-click="setEditId(p.id)"></td>
+        </tr>
+        <tr ng-show="editId===p.id" ng-if="editId===p.id">
+            <td colspan="7" ng-include src="app/etudiants/editRow.html"></td>
+        </tr>
+        
+    </tbody>
+   
+   <!--
+    <tbody ng-repeat="p in $data">
+        <tr id="tr{{p.id}}" ng-class-odd="'odd'" ng-class-even="'even'">
+            <td class="rowTd" data-title="'ID'"          sortable="'id'" filter="{ 'id': 'text' }">{{p.id}}</td>
+            <td class="rowTd" data-title="'Firstname'"   sortable="'fn'" filter="{ 'fb': 'text' }">{{p.fn}}</td>
+            <td class="rowTd" data-title="'Lastname'"    sortable="'ln'" filter="{ 'ln': 'text' }">{{p.ln}}</td>
+            <td class="rowTd" data-title="'Description'" sortable="'dc'" filter="{ 'dc': 'text' }">{{p.dc}}</td>
+            <td class="rowTd" data-title="'Email'"       sortable="'em'" filter="{ 'em': 'text' }">{{p.em}}</td>
+            <td class="rowTd" data-title="'Phone'"       sortable="'ph'" filter="{ 'ph': 'text' }">{{p.ph}}</td>
+            <td class="rowTd" ><input type=button id="editRowBtn{{p.id}}" value="edit"
+                                      ng-click="setEditId(p.id)"></td>
+        </tr>
+        <tr ng-show="editId===p.id" ng-if="editId===p.id">
+            <td colspan="7" ng-include src="'editRow.html'"></td>
+        </tr>
+     </tbody>
+     -->
+
 </table>
