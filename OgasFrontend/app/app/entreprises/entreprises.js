@@ -6,7 +6,9 @@ angular.module('entreprises', ['ngTable']).
   config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/entreprises', {templateUrl: 'app/entreprises/entreprises.html', controller: 'EntrepriseCtrl'});
   }]).
-  controller('EntrepriseCtrl', ['$scope', 'ngTableParams', '$filter', function($scope, ngTableParams, $filter) {
+
+  controller('EntrepriseCtrl', ['$scope', '$filter','ngTableParams', function($scope,$filter, ngTableParams) {
+
           var data = [{name: "Moroni", age: 50},
                 {name: "Tiancum", age: 43},
                 {name: "Jacob", age: 27},
@@ -34,11 +36,21 @@ angular.module('entreprises', ['ngTable']).
     }, {
         total: data.length, // length of data
         getData: function($defer, params) {
+
+        // use build-in angular filter
+            var filteredData = params.filter() ?
+                    $filter('filter')(data, params.filter()) :
+                    data;
             var orderedData = params.sorting() ?
-                                $filter('orderBy')(data, params.orderBy()) :
-                                data;
-            
+                    $filter('orderBy')(filteredData, params.orderBy()) :
+                    data;
+
+            params.total(orderedData.length); // set total for recalc pagination
+            if(params.total() < params.page() * params.count() && params.total() < (params.page() -1) * params.count()){
+              params.page(1);
+            }
             $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+
         }
     });
   }]);
