@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Entretien.findAll", query = "SELECT e FROM Entretien e"),
     @NamedQuery(name = "Entretien.findByEtrId", query = "SELECT e FROM Entretien e WHERE e.etrId = :etrId"),
+    @NamedQuery(name = "Entretien.findByEvenementId", query = "SELECT e FROM Entretien e WHERE e.etrevtID = :etrevtID"),
     @NamedQuery(name = "Entretien.findByEtrPriorite", query = "SELECT e FROM Entretien e WHERE e.etrPriorite = :etrPriorite"),
     @NamedQuery(name = "Entretien.findByEtrHoraire", query = "SELECT e FROM Entretien e WHERE e.etrHoraire = :etrHoraire")})
 public class Entretien implements Serializable {
