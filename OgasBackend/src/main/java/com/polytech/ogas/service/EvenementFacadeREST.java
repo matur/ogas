@@ -88,4 +88,5 @@ public class EvenementFacadeREST extends AbstractFacade<Evenement> {
         return em;
     }
     
+    
 }
