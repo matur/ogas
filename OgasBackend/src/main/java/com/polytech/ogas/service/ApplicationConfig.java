@@ -13,12 +13,12 @@ import javax.ws.rs.core.Application;
  *
  * @author epulapp
  */
-@javax.ws.rs.ApplicationPath("webresources")
+@javax.ws.rs.ApplicationPath("ws")
 public class ApplicationConfig extends Application {
 
     @Override
     public Set<Class<?>> getClasses() {
-        Set<Class<?>> resources = new java.util.HashSet<>();
+        Set<Class<?>> resources = new java.util.HashSet<Class<?>>();
         addRestResourceClasses(resources);
         return resources;
     }
