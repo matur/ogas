@@ -6,21 +6,23 @@
 
 package com.polytech.ogas.service;
 
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.UriInfo;
+
 
 /**
  * REST Web Service
  *
  * @author epulapp
  */
-@Path("/planning")
+@Path("planning")
 public class PlanningFacadeREST {
-
+    @Context
+    private UriInfo context;
     /**
      * Creates a new instance of PlanningFacadeREST
      */
@@ -31,13 +33,13 @@ public class PlanningFacadeREST {
     @Path("computeplanning/{id}")
     @Produces("application/json")
     public String computePlanning(@PathParam("id") Short idEvenement) {
-        return null;
+        return "compute planning !";
     }
     
     @GET
     @Path("getplanning/{id}")
     @Produces("application/json")
     public String getPlanning(@PathParam("id") Short idEvenement) {
-        return null;
+        return "get planning !";
     }
 }
