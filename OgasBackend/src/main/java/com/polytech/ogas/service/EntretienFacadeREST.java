@@ -7,10 +7,12 @@
 package com.polytech.ogas.service;
 
 import com.polytech.ogas.Entretien;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -83,6 +85,18 @@ public class EntretienFacadeREST extends AbstractFacade<Entretien> {
         return String.valueOf(super.count());
     }
 
+        
+    public ArrayList<Entretien> findAllByIdEvenement(short idEvenement)
+    {
+        ArrayList<Entretien> entretiens = new ArrayList<Entretien>();
+        Query entretiensQuery = getEntityManager().createQuery("Entretien.findByEvenementId");
+        List entretiensResults = entretiensQuery.getResultList();
+        for (Object entretien : entretiensResults) {
+            entretiens.add((Entretien) entretien);
+        }
+        return entretiens;
+    }
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
