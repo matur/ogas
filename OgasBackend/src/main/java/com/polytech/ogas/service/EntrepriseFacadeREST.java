@@ -25,7 +25,7 @@ import javax.ws.rs.Produces;
  * @author epulapp
  */
 @Stateless
-@Path("/entreprise")
+@Path("entreprise")
 public class EntrepriseFacadeREST extends AbstractFacade<Entreprise> {
     @PersistenceContext(unitName = "com.polytech_OgasBackend_war_1.0-SNAPSHOTPU")
     private EntityManager em;
