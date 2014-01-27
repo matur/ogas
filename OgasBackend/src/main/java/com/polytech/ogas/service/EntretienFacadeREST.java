@@ -21,6 +21,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -29,8 +30,7 @@ import javax.ws.rs.Produces;
 @Stateless
 @Path("/entretien")
 public class EntretienFacadeREST extends AbstractFacade<Entretien> {
-    @PersistenceContext(unitName = "com.polytech_OgasBackend_war_1.0-SNAPSHOTPU")
-    private EntityManager em;
+    
 
     public EntretienFacadeREST() {
         super(Entretien.class);
@@ -38,14 +38,14 @@ public class EntretienFacadeREST extends AbstractFacade<Entretien> {
 
     @POST
     @Override
-    @Consumes({"application/xml", "application/json"})
+    @Consumes(MediaType.APPLICATION_JSON)
     public void create(Entretien entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("edit/{id}")
-    @Consumes({"application/xml", "application/json"})
+    @Consumes({MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Short id, Entretien entity) {
         super.edit(entity);
     }
@@ -58,7 +58,7 @@ public class EntretienFacadeREST extends AbstractFacade<Entretien> {
 
     @GET
     @Path("find/{id}")
-    @Produces({"application/xml", "application/json"})
+    @Produces({MediaType.APPLICATION_JSON})
     public Entretien find(@PathParam("id") Short id) {
         return super.find(id);
     }
@@ -66,21 +66,21 @@ public class EntretienFacadeREST extends AbstractFacade<Entretien> {
     @GET
     @Path("findAll")
     @Override
-    @Produces({"application/xml", "application/json"})
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Entretien> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("findRange/{from}/{to}")
-    @Produces({"application/xml", "application/json"})
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Entretien> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
     @GET
     @Path("count")
-    @Produces("text/plain")
+    @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
         return String.valueOf(super.count());
     }
@@ -95,11 +95,5 @@ public class EntretienFacadeREST extends AbstractFacade<Entretien> {
             entretiens.add((Entretien) entretien);
         }
         return entretiens;
-    }
-    
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
-    
+    }    
 }

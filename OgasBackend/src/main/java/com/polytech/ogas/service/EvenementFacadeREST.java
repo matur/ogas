@@ -19,6 +19,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -27,23 +28,21 @@ import javax.ws.rs.Produces;
 @Stateless
 @Path("/evenement")
 public class EvenementFacadeREST extends AbstractFacade<Evenement> {
-    @PersistenceContext(unitName = "com.polytech_OgasBackend_war_1.0-SNAPSHOTPU")
-    private EntityManager em;
-
+    
     public EvenementFacadeREST() {
         super(Evenement.class);
     }
 
     @POST
     @Override
-    @Consumes({"application/xml", "application/json"})
+    @Consumes(MediaType.APPLICATION_JSON)
     public void create(Evenement entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("edit/{id}")
-    @Consumes({"application/xml", "application/json"})
+    @Consumes(MediaType.APPLICATION_JSON)
     public void edit(@PathParam("id") Short id, Evenement entity) {
         super.edit(entity);
     }
@@ -56,7 +55,7 @@ public class EvenementFacadeREST extends AbstractFacade<Evenement> {
 
     @GET
     @Path("find/{id}")
-    @Produces({"application/xml", "application/json"})
+    @Produces(MediaType.APPLICATION_JSON)
     public Evenement find(@PathParam("id") Short id) {
         return super.find(id);
     }
@@ -64,29 +63,22 @@ public class EvenementFacadeREST extends AbstractFacade<Evenement> {
     @GET
     @Path("findAll")
     @Override
-    @Produces({"application/xml", "application/json"})
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Evenement> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("findRange/{from}/{to}")
-    @Produces({"application/xml", "application/json"})
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Evenement> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
     @GET
     @Path("count")
-    @Produces("text/plain")
+    @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
         return String.valueOf(super.count());
-    }
-
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
-    
-    
+    }  
 }
