@@ -7,5 +7,6 @@
     <tr ng-repeat="salle in $data">
         <td data-title="'Name'" sortable="'name'" filter="{ 'name': 'text' }">{{salle.name}}</td>
         <td data-title="'Capacite'" sortable="'capacite'" filter="{ 'capacite': 'text' }">{{salle.capacite}}</td>
+        <td><input type=button value="view" ng-click="viewPopup($index)" /></td>
     </tr>
 </table>
