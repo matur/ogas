@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" ng-app="authentification">
+<head>
+  <meta charset="utf-8">
+  <title>OGAS - {{ title }}</title>
+  <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="../../css/bootstrap-theme.min.css"/>
+  <link rel="stylesheet" href="../../css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="../../css/ng-table.css"/>
+  <link rel="stylesheet" href="../../css/app.css"/>
+</head>
+
+<body>
+    <div id="ogas_signin" class="container" ng-controller="AuthentificationCtrl">
+        <form id="ogas_signin_form" class="form-signin" ng-submit="authenticate()">
+            <h2 class="form-signin-heading" >Authentification</h2>
+        
+            <input class="form-control" name="identifiant" type="text" placeholder="Identifiant" ng-model="loginId" />
+            <input class="form-control" name="mdp" type="password" placeholder="Mot de passe" ng-model="loginMdp" />
+
+            <label class="checkbox" >
+                <input name="rememberMe" type="checkbox" value="1" />
+            Se souvenir de moi</label>
+            
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Valider</button>
+        </form>
+    </div>
+    
+    <script src="../../vendor/jquery-2.0.3.min.js"></script>
+    <script src="../../vendor/bootstrap.min.js"></script>
+    <script src="../../vendor/angular/angular.js"></script>
+    <script src="../../vendor/angular/angular-route.js"></script>
+    <script src="../../vendor/ui-bootstrap-tpls-0.10.0.js" ></script>
+    <script src="authentification.js"></script>
+    <script src="../../common/services/services.js"></script>
+    <script src="../../common/filters/filters.js"></script>
+    <script src="../../common/directives/directives.js"></script>
+</body>
+</html>

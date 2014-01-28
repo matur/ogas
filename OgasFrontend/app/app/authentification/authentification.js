@@ -7,6 +7,11 @@
 angular.module('authentification', [])
     .controller('AuthentificationCtrl', ['$scope', function($scope){
             
+            $scope.authenticate = function(){
+                console.log("login : "+$scope.loginId);
+                console.log("mdp : "+$scope.loginMdp);
+                
+            }
     }]);
 
 
