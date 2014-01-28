@@ -7,8 +7,9 @@ angular.module('app', [
   'ui.bootstrap',
   'dragAndDrop',
   'etudiants',
-
-  'entreprises'
+  'salles',
+  'entreprises',
+  'evenements'
   //,'editRow'
   /*,
 
