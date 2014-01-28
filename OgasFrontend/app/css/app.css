@@ -32,3 +32,12 @@
 .dropdown-toggle {
     cursor: pointer;
 }
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+    vertical-align: middle;
+}
+
+.table-action tbody tr td:last-child {
+    width: 150px;
+    text-align: center;
+}
