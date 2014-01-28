@@ -182,13 +182,11 @@ angular.module('etudiants', ['ngTable']).
     $scope.tableParams = new ngTableParams({
         page: 1,            // show first page
 
-        count: 10           // count per page
-       /* filter: {
-            name: ''       // initial filter
-        },
+        count: 10,           // count per page
+ 
         sorting: {
             name: 'asc'     // initial sorting
-        }*/
+        }
 
     }, {
         groupBy: 'annee',

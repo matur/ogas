@@ -1,12 +1,50 @@
-<h2>Evenements</h2> 
+<!-- Page title -->
+<div class="container">
+    <div class="pull-left">
+        <h1>Gestion des salles</h1>
+    </div>
+    <div class="pull-right">
+        <h1>
+            <button type="button" class="btn btn-info pull-right" ng-click="addSalle(salle)"><i class="fa fa-plus"></i> Ajouter une salle</button>
+        </h1>
+    </div>
+</div>
+<hr>
+<!--/Page title -->
 
-<button ng-click="tableParams.sorting({})" class="btn btn-default pull-right">Clear sorting</button>
-<button ng-click="tableParams.filter({})" class="btn btn-default pull-right">Clear filter</button>
-
-<table ng-table="tableParams" show-filter="true" class="table">
+<!-- Content -->
+<table ng-table="tableParams" template-pagination="customPager" class="table table-action">
     <tr ng-repeat="salle in $data">
-        <td data-title="'Name'" sortable="'name'" filter="{ 'name': 'text' }">{{salle.name}}</td>
-        <td data-title="'Capacite'" sortable="'capacite'" filter="{ 'capacite': 'text' }">{{salle.capacite}}</td>
-        <td><input type=button value="Editer" ng-click="editSalle(salle)" /></td>
+        <td data-title="'Nom'">
+            {{ salle.name }}
+        </td>
+        <td data-title="'Capacité'">
+            {{ salle.capacite }}
+        </td>
+        <td data-title="'Actions'">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" ng-click="editSalle(salle)"><i class="fa fa-pencil-square-o"></i></button>
+                <button type="button" class="btn btn-danger" ng-click="deleteSalle(salle)"><i class="fa fa-trash-o"></i></button>
+          </div>
+        </td>
     </tr>
 </table>
+<script type="text/ng-template" id="customPager">
+    <ul class="pager ng-cloak">
+      <li ng-repeat="page in pages"
+            ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"
+            ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
+        <a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo; Précédent</a>
+        <a ng-switch-when="next" ng-click="params.page(page.number)" href="">Suivant &raquo;</a>
+      </li>
+        <li> 
+        <div class="btn-group">
+            <button type="button" ng-class="{'active':params.count() == 10}" ng-click="params.count(10)" class="btn btn-default">10</button>
+            <button type="button" ng-class="{'active':params.count() == 25}" ng-click="params.count(25)" class="btn btn-default">25</button>
+            <button type="button" ng-class="{'active':params.count() == 50}" ng-click="params.count(50)" class="btn btn-default">50</button>
+            <button type="button" ng-class="{'active':params.count() == 100}" ng-click="params.count(100)" class="btn btn-default">100</button>
+        </div>
+        </li>
+    </ul>
+</script>
+<!--/Content -->
