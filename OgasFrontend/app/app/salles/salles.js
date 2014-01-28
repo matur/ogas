@@ -13,14 +13,15 @@ angular.module('salles', ['ngTable']).
                     {name: "salle3", capacite: "40"},
                     {name: "salle2", capacite: "15"}];
 
+                // Table of the elements
                 $scope.tableParams = new ngTableParams({
-                    page: 1, // show first page
-                    count: 5, // count per page
+                    page: 1,
+                    count: 5,
                     sorting: {
-                        name: 'asc'     // initial sorting
+                        name: 'asc'
                     }
                 }, {
-                    total: $scope.data.length, // length of data
+                    total: $scope.data.length,
                     getData: function($defer, params) {
                         var filteredData = params.filter() ?
                                 $filter('filter')($scope.data, params.filter()) :
@@ -30,43 +31,48 @@ angular.module('salles', ['ngTable']).
                                 $scope.data;
 
                         $scope.data = orderedData;
-
                         params.total(orderedData.length); // set total for recalc pagination
                         if (params.total() < params.page() * params.count() && params.total() < (params.page() - 1) * params.count()) {
                             params.page(1);
                         }
-
                         $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                     }
                 });
 
-                // modal
-                var modalInstance;
-                $scope.openForCreation = function() {
-                    modalInstance = $modal.open({
+                // Modals for creation and update
+                $scope.addSalle = function() {
+                    var modalInstance = $modal.open({
                         templateUrl: 'app/core/modal.html',
+                        controller: 'ModalInstanceCtrl',
                         resolve: {
-                            modalUrl: function() {
-                                return 'forms/create.html';
-                            },
-                            modalTitle: function() {
-                                return 'Création d\'une salle';
-                            }
+                            title: function() { return 'Creation d\'une salle' },
+                            url: function() { return 'app/salles/forms/create.html'}
                         }
                     });
                     modalInstance.result.then(function() {
-                        console.log('validation');
+                        //Refresh the table
                     }, function() {
-                        console.log('annulation');
+                        //Flush the form ?
                     });
                 };
-                
-                $scope.ok = function() {
-                    console.log("bouton OK");
-                    modalInstance.close();
+                $scope.editSalle = function(salle) {
+                    var modalInstance = $modal.open({
+                        templateUrl: 'app/core/modal.html',
+                        controller: 'ModalInstanceCtrl',
+                        resolve: {
+                            title: function() { return 'Edition de la salle ' + salle.name },
+                            url: function() { return 'app/salles/forms/update.html' }
+                        }
+                    });
                 };
-
-                $scope.cancel = function() {
-                    modalInstance.dismiss('cancel');
-                };
-            }]);
+            }]).
+        controller('ModalInstanceCtrl', ['$scope', '$modalInstance', 'title', 'url', function($scope, $modalInstance, title, url) {
+            $scope.title = title;
+            $scope.url = url;
+            $scope.ok = function() {
+                $modalInstance.close();
+            };
+            $scope.cancel = function() {
+                $modalInstance.dismiss('cancel');
+            };
+        }]);
