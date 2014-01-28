@@ -1,3 +1,17 @@
 <form>
-    <label>Création</label>
+    
+        <!-- NAME -->
+        <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
+            <label>Nom de salle</label>
+            <input type="text" name="name" class="form-control" ng-model="salle.name" required>
+        </div>
+        
+        <!-- FIRSTNAME -->
+        <div class="form-group" ng-class="{ 'has-error' : userForm.capacite.$invalid && !userForm.capacite.$pristine }">
+            <label>Capacité</label>
+            <input type="number" name="capacite" class="form-control" ng-model="salle.capacite" required>
+        </div>
+            
+        
+        <button type="submit" class="btn btn-primary">Valider</button>
 </form>
