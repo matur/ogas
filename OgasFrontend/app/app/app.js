@@ -9,15 +9,8 @@ angular.module('app', [
   'etudiants',
   'salles',
   'entreprises',
-  'evenements'
-  //,'editRow'
-  /*,
-
-  'entreprises',
-  'evenements'/*,
-
   'salles',
-  */
+  'evenements' 
 ]).
 config(['$routeProvider', function($routeProvider) {
   /*$routeProvider.when('/', {templateUrl: 'partials/home.html', controller: 'HomeController'});
