@@ -7,9 +7,7 @@ angular.module('app', [
   'ui.bootstrap',
   'dragAndDrop',
   'etudiants',
-  'salles',
   'entreprises',
-  'salles',
   'evenements' 
 ]).
 config(['$routeProvider', function($routeProvider) {

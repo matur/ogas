@@ -5,7 +5,7 @@
 
 angular.module('evenements', ['ngTable']).
         config(['$routeProvider', function($routeProvider) {
-                $routeProvider.when('/evenements', {templateUrl: 'app/evenements/evenements.html', controller: 'GeneralCtrl'});
+                $routeProvider.when('/evenements', {templateUrl: 'app/evenements/evenements_onglets.html', controller: 'GeneralCtrl'});
             }]).
         controller('GeneralCtrl', ['$scope', 'ngTableParams', '$filter', function($scope, ngTableParams, $filter) {
                 var data = [{name: "event1", date: "20/01/2013", selected: true},
