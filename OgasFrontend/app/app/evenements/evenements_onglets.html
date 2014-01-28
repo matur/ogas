@@ -1,0 +1,6 @@
+<h2>Evenements</h2>
+<tabset>
+    <tab ng-repeat="tab in tabTitres" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
+        <div ng-include="tab.content"></div>
+    </tab>
+</tabset>

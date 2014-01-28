@@ -1,0 +1,13 @@
+<table ng-table="tableParams" show-filter="true" class="table">
+    <tr ng-repeat="event in tabSalles">
+        <td data-title="'Réservée'">
+            <input type="checkbox" ng-model="event.selected">
+        </td>
+        <td data-title="'Nom'">
+            {{event.name}}
+        </td>
+        <td data-title="'Localisation'">
+            {{event.localisation}}
+        </td>
+    </tr>
+</table>

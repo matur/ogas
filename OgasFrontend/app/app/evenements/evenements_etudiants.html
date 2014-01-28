@@ -1,0 +1,10 @@
+<table ng-table="tableParams" show-filter="true" class="table">
+    <tr ng-repeat="event in tabEtudiants">
+        <td data-title="'Participation'">
+            <input type="checkbox" ng-model="event.selected">
+        </td>
+        <td data-title="'Nom complet'">
+            {{event.fn}} {{event.ln}}
+        </td>
+    </tr>
+</table>
