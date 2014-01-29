@@ -1,3 +1,23 @@
-<form>
-    <label>Modification</label>
+<form name="userForm" ng-submit="submitForm()" >
+    
+        <!-- NAME -->
+        <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
+            <label>Libellé</label>
+            <input type="text" name="name" class="form-control" ng-model="salle.name" required>
+        </div>
+            
+       <!-- LOCALISATION -->
+        <div class="form-group" ng-class="{ 'has-error' : userForm.localisation.$invalid && !userForm.localisation.$pristine }">
+            <label>Localisation</label>
+            <input type="text" name="localisation" class="form-control" ng-model="salle.localisation" required>
+        </div>
+       
+        <!-- CAPACITE -->
+        <div class="form-group" ng-class="{ 'has-error' : userForm.capacite.$invalid && !userForm.capacite.$pristine }">
+            <label>Capacité</label>
+            <input type="number" min="0" name="capacite" class="form-control" ng-model="salle.capacite" required>
+        </div>
+        
+                
+        <button type="submit" class="btn btn-primary">Valider</button>
 </form>
