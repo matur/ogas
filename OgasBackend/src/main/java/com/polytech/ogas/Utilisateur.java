@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlType;
     @NamedQuery(name = "Utilisateur.findByMdp", query = "SELECT u FROM Utilisateur u WHERE u.mdp = :mdp"),
     @NamedQuery(name = "Utilisateur.findByAdmin", query = "SELECT u FROM Utilisateur u WHERE u.admin = :admin"),
     @NamedQuery(name = "Utilisateur.findByLecture", query = "SELECT u FROM Utilisateur u WHERE u.lecture = :lecture"),
-    @NamedQuery(name = "Utilisateur.findByEcriture", query = "SELECT u FROM Utilisateur u WHERE u.ecriture = :ecriture")})
+    @NamedQuery(name = "Utilisateur.findByEcriture", query = "SELECT u FROM Utilisateur u WHERE u.ecriture = :ecriture"),
+    @NamedQuery(name = "Utilisateur.findByLoginMdp", query = "SELECT u FROM Utilisateur u WHERE u.login = :login and u.mdp = :mdp")})
 @XmlType(propOrder={"id","login","mdp","admin","lecture","ecriture"})
 public class Utilisateur implements Serializable {
     private static final long serialVersionUID = 1L;
