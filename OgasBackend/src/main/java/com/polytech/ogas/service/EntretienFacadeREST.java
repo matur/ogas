@@ -36,15 +36,17 @@ public class EntretienFacadeREST extends AbstractFacade<Entretien> {
     @POST
     @Override
     @Consumes(MediaType.APPLICATION_JSON)
-    public void create(Entretien entity) {
-        super.create(entity);
+    @Produces(MediaType.APPLICATION_JSON)
+    public Entretien create(Entretien entity) {
+        return super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Entretien entity) {
-        super.edit(entity);
+    @Produces(MediaType.APPLICATION_JSON)
+    public Entretien edit(@PathParam("id") Integer id, Entretien entity) {
+        return super.edit(entity);
     }
 
     @DELETE

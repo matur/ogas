@@ -34,15 +34,17 @@ public class EvenementFacadeREST extends AbstractFacade<Evenement> {
     @POST
     @Override
     @Consumes(MediaType.APPLICATION_JSON)
-    public void create(Evenement entity) {
-        super.create(entity);
+    @Produces(MediaType.APPLICATION_JSON)
+    public Evenement create(Evenement entity) {
+        return super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void edit(@PathParam("id") Integer id, Evenement entity) {
-        super.edit(entity);
+    @Produces(MediaType.APPLICATION_JSON)
+    public Evenement edit(@PathParam("id") Integer id, Evenement entity) {
+        return super.edit(entity);
     }
 
     @DELETE

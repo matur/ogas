@@ -34,20 +34,22 @@ public class SalleFacadeREST extends AbstractFacade<Salle> {
     @POST
     @Override
     @Consumes(MediaType.APPLICATION_JSON)
-    public void create(Salle entity) {
-        super.create(entity);
+    @Produces(MediaType.APPLICATION_JSON)
+    public Salle create(Salle entity) {
+        return super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void edit(@PathParam("id") Integer id, Salle entity) {
-        super.edit(entity);
+    @Produces(MediaType.APPLICATION_JSON)
+    public Salle edit(@PathParam("id") Integer id, Salle entity) {
+        return super.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") Short id) {
+    public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 

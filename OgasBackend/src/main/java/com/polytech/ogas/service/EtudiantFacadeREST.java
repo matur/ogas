@@ -34,15 +34,17 @@ public class EtudiantFacadeREST extends AbstractFacade<Etudiant> {
     @POST
     @Override
     @Consumes(MediaType.APPLICATION_JSON)
-    public void create(Etudiant entity) {
-        super.create(entity);
+    @Produces(MediaType.APPLICATION_JSON)
+    public Etudiant create(Etudiant entity) {
+        return super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void edit(@PathParam("id") Integer id, Etudiant entity) {
-        super.edit(entity);
+    @Produces(MediaType.APPLICATION_JSON)
+    public Etudiant edit(@PathParam("id") Integer id, Etudiant entity) {
+        return super.edit(entity);
     }
 
     @DELETE

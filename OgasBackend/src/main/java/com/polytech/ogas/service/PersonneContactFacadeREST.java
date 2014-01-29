@@ -34,15 +34,17 @@ public class PersonneContactFacadeREST extends AbstractFacade<PersonneContact> {
     @POST
     @Override
     @Consumes(MediaType.APPLICATION_JSON)
-    public void create(PersonneContact entity) {
-        super.create(entity);
+    @Produces(MediaType.APPLICATION_JSON)
+    public PersonneContact create(PersonneContact entity) {
+        return super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void edit(@PathParam("id") Integer id, PersonneContact entity) {
-        super.edit(entity);
+    @Produces(MediaType.APPLICATION_JSON)
+    public PersonneContact edit(@PathParam("id") Integer id, PersonneContact entity) {
+        return super.edit(entity);
     }
 
     @DELETE

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.polytech.ogas.service;
 
 import java.util.List;
@@ -18,22 +17,23 @@ import javax.persistence.Persistence;
  * @author epulapp
  */
 public abstract class AbstractFacade<T> {
+
     private final Class<T> entityClass;
-    
+
     private final EntityManagerFactory emf;
     private final EntityManager em;
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
         emf = Persistence.createEntityManagerFactory("ogasBackend");
-        em = emf.createEntityManager(); 
+        em = emf.createEntityManager();
     }
 
-    public EntityManager getEntityManager(){
+    public EntityManager getEntityManager() {
         return em;
     }
 
-    public void create(T entity) {
+    public T create(T entity) {
         EntityTransaction entityTransaction = em.getTransaction();
         try {
             entityTransaction.begin();
@@ -43,11 +43,12 @@ public abstract class AbstractFacade<T> {
             entityTransaction.rollback();
             Logger.getLogger(e.getMessage());
         }
+        return entity;
     }
 
-    public void edit(T entity) {
+    public T edit(T entity) {
         EntityTransaction entityTransaction = em.getTransaction();
-        try{
+        try {
             entityTransaction.begin();
             getEntityManager().merge(entity);
             entityTransaction.commit();
@@ -55,6 +56,7 @@ public abstract class AbstractFacade<T> {
             entityTransaction.rollback();
             Logger.getLogger(e.getMessage());
         }
+        return entity;
     }
 
     public void remove(T entity) {
@@ -68,13 +70,13 @@ public abstract class AbstractFacade<T> {
             entityTransaction.rollback();
             Logger.getLogger(e.getMessage());
         }
-        
+
     }
 
     public T find(Object id) {
         T t = null;
         try {
-             t = getEntityManager().find(entityClass, id);
+            t = getEntityManager().find(entityClass, id);
         } catch (Exception e) {
             Logger.getLogger(e.getMessage());
         }
@@ -121,5 +123,5 @@ public abstract class AbstractFacade<T> {
         }
         return count;
     }
-    
+
 }
