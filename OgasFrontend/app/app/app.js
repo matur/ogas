@@ -7,9 +7,22 @@ angular.module('app', [
   'ui.bootstrap',
   'dragAndDrop',
   'etudiants',
+
+  'salles',
   'entreprises',
   'evenements',
-  'salles'
+  'monprofil'
+  //,'editRow'
+  /*,
+  
+'monprofil',
+  'evenements',
+
+  'salles',
+  */
+
+
+
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/'});
