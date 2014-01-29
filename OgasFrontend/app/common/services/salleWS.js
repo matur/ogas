@@ -19,13 +19,13 @@ var salleWS = angular.module('salleWS', [
 ]);
 
 salleWS.factory("salleWS", ["$resource",function($resource){
-        this.wsBaseUrl = 'http://134.214.119.156:9000/OgasBackend/ws/salle/';
-        this.wsResources = [];
-        
-        // quand on s'attend a recevoir un array (par exemple), il faut le preciser
-        this.wsResources["getAllSalles"] = $resource(this.wsBaseUrl+'findAll', {}, {'get':{method:'GET', isArray:true}});
-        
-        this.wsResources["getSalle"] = $resource(this.wsBaseUrl+'find/:id');
+        this.wsBaseUrl = 'http://134.214.119.156:9000/OgasBackend/ws/';
 
-       return this;
+       return $resource(this.wsBaseUrl+'salles/:id', {id:''}, {
+            getAll: { method: 'GET', isArray: true },
+            create: { method: 'POST' },
+            show: { method: 'GET' },
+            update: { method: 'PUT', params: {id: '@id'} },
+            delete: { method: 'DELETE', params: {id: '@id'} }
+        });
 }]);
