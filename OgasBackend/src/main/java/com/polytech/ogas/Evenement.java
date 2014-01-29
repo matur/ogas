@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlType;
     @NamedQuery(name = "Evenement.findByDateevt", query = "SELECT e FROM Evenement e WHERE e.dateevt = :dateevt"),
     @NamedQuery(name = "Evenement.findByDuree", query = "SELECT e FROM Evenement e WHERE e.duree = :duree"),
     @NamedQuery(name = "Evenement.findByDureeEntretien", query = "SELECT e FROM Evenement e WHERE e.dureeEntretien = :dureeEntretien")})
-@XmlType(propOrder={"id","typeevt","dateevt","duree","dureeEntretien","evtid"})
+@XmlType(propOrder={"id","typeevt","dateevt","duree","dureeEntretien"})
 public class Evenement implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -57,7 +57,7 @@ public class Evenement implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "duree")
     private String duree;
-    @Column(name = "dureeEntretien")
+    @Column(name = "dureeentretien")
     private Short dureeEntretien;
     @OneToMany(mappedBy = "evtid")
     private Collection<Entretien> entretienCollection;

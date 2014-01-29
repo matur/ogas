@@ -35,9 +35,10 @@ public class ApplicationConfig extends Application {
         resources.add(com.polytech.ogas.service.EntretienFacadeREST.class);
         resources.add(com.polytech.ogas.service.EtudiantFacadeREST.class);
         resources.add(com.polytech.ogas.service.EvenementFacadeREST.class);
-        resources.add(com.polytech.ogas.service.PersonnecontactFacadeREST.class);
+        resources.add(com.polytech.ogas.service.PersonneContactFacadeREST.class);
         resources.add(com.polytech.ogas.service.PlanningFacadeREST.class);
         resources.add(com.polytech.ogas.service.SalleFacadeREST.class);
+        resources.add(com.polytech.ogas.service.SecurityFilter.class);
         resources.add(com.polytech.ogas.service.UtilisateurFacadeREST.class);
     }
     

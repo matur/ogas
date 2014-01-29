@@ -8,7 +8,7 @@
     <class>com.polytech.ogas.Entreprise</class>
     <class>com.polytech.ogas.Utilisateur</class>
     <class>com.polytech.ogas.Etudiant</class>
-    <class>com.polytech.ogas.Personnecontact</class>
+    <class>com.polytech.ogas.PersonneContact</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/projet2"/>

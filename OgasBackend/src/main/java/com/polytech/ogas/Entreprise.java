@@ -45,7 +45,7 @@ import javax.xml.bind.annotation.XmlType;
     @NamedQuery(name = "Entreprise.findByTel", query = "SELECT e FROM Entreprise e WHERE e.tel = :tel"),
     @NamedQuery(name = "Entreprise.findByAnneparticipforum", query = "SELECT e FROM Entreprise e WHERE e.anneparticipforum = :anneparticipforum"),
     @NamedQuery(name = "Entreprise.findByNbrapprenti", query = "SELECT e FROM Entreprise e WHERE e.nbrapprenti = :nbrapprenti")})
-@XmlType(propOrder={"id","raison","naf","siret","effectif","organisme","adresse","adresse2","cp","ville","tel","anneparticipationforum","nbapprenti"})
+//@XmlType(propOrder={"id","raison","naf","siret","effectif","organisme","adresse","adresse2","cp","ville","tel","anneparticipforum","nbapprenti"})
 public class Entreprise implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -90,7 +90,7 @@ public class Entreprise implements Serializable {
     @OneToMany(mappedBy = "entid")
     private Collection<Entretien> entretienCollection;
     @OneToMany(mappedBy = "entid")
-    private Collection<Personnecontact> personnecontactCollection;
+    private Collection<PersonneContact> personnecontactCollection;
 
     public Entreprise() {
     }
@@ -213,11 +213,11 @@ public class Entreprise implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Personnecontact> getPersonnecontactCollection() {
+    public Collection<PersonneContact> getPersonnecontactCollection() {
         return personnecontactCollection;
     }
 
-    public void setPersonnecontactCollection(Collection<Personnecontact> personnecontactCollection) {
+    public void setPersonnecontactCollection(Collection<PersonneContact> personnecontactCollection) {
         this.personnecontactCollection = personnecontactCollection;
     }
 
