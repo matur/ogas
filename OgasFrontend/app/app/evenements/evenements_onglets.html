@@ -1,4 +1,8 @@
-<h2>Evenements</h2>
+ <div>
+      Selection de l'évènement  :  <select ng-init="selectionTabEvenements = event[0]" ng-model="selectionTabEvenements" ng-options="event.typeevt for event in tabEvenements">
+</select>
+ </div>
+<h2>Evenement {{selectionTabEvenements.typeevt}}</h2>
 <tabset>
     <tab ng-repeat="tab in tabTitres" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
         <div ng-include="tab.content"></div>

@@ -1,0 +1,12 @@
+<table ng-table="tableParams" show-filter="true" class="table">
+    <tr ng-repeat="event in tabEntreprises | filter:event.selected=true">
+        <td data-title="'Entreprise :'">
+            {{event.raison}}
+        </td>
+        <td data-title="'Etudiants souhaités :'">
+            
+        </td>
+        <td data-title="'Modifier'"><input type=button id="editRowBtn{{event.id}}" value="Modifier etudiants" ng-click="setEditId(p.id)">
+        </td>
+    </tr>
+</table>
