@@ -15,16 +15,20 @@
 <!-- Content -->
 <table ng-table="tableParams" template-pagination="customPager" class="table table-action">
     <tr ng-repeat="salle in $data">
-        <td data-title="'Nom'">
-            {{ salle.name }}
+        <td data-title="'Libellé'">
+            {{ salle.libelle }}
         </td>
         <td data-title="'Capacité'">
             {{ salle.capacite }}
         </td>
+        <td data-title="'Localisation'">
+            {{ salle.localisation }}
+        </td>
         <td data-title="'Actions'">
             <div class="btn-group">
-                <button type="button" class="btn btn-primary" ng-click="editSalle(salle)"><i class="fa fa-pencil-square-o"></i></button>
-                <button type="button" class="btn btn-danger" ng-click="deleteSalle(salle)"><i class="fa fa-trash-o"></i></button>
+                <button type="button" class="btn btn-info" ng-click="showSalle(salle.id)"><i class="fa fa-eye"></i></button>
+                <button type="button" class="btn btn-primary" ng-click="editSalle(salle.id)"><i class="fa fa-pencil-square-o"></i></button>
+                <button type="button" class="btn btn-danger" ng-click="deleteSalle(salle.id)"><i class="fa fa-trash-o"></i></button>
           </div>
         </td>
     </tr>

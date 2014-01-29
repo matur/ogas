@@ -1,50 +1,36 @@
 'use strict';
 
-angular.module('salles', ['ngTable']).
+angular.module('salles', ['resources.salles', 'ngTable']).
         config(['$routeProvider', function($routeProvider) {
-                $routeProvider.when('/salles', {templateUrl: 'app/salles/salles.html', controller: 'SalleCtrl'});
+                $routeProvider.when('/salles', {
+                    templateUrl: 'app/salles/salles.html',
+                    controller: 'SalleListCtrl'
+                });
             }]).
-        controller('SalleCtrl', ['$scope', 'ngTableParams', '$modal', function($scope, ngTableParams, $modal) {
-                var data = [
-                    {name: "salle5", capacite: "20"},
-                    {name: "salle1", capacite: "10"},
-                    {name: "salle4", capacite: "30"},
-                    {name: "salle3", capacite: "40"},
-                    {name: "salle5", capacite: "20"},
-                    {name: "salle1", capacite: "10"},
-                    {name: "salle4", capacite: "30"},
-                    {name: "salle3", capacite: "40"},
-                    {name: "salle5", capacite: "20"},
-                    {name: "salle1", capacite: "10"},
-                    {name: "salle4", capacite: "30"},
-                    {name: "salle3", capacite: "40"},
-                    {name: "salle5", capacite: "20"},
-                    {name: "salle1", capacite: "10"},
-                    {name: "salle4", capacite: "30"},
-                    {name: "salle3", capacite: "40"},
-                    {name: "salle2", capacite: "15"}
-                ];
-
+        controller('SalleListCtrl', ['$scope', 'ngTableParams', '$modal', 'Salles', function($scope, ngTableParams, $modal, Salles) {
                 $scope.tableParams = new ngTableParams({
                     page: 1, // show first page
-                    count: 10           // count per page
+                    count: 10 // count per page
                 }, {
-                    total: data.length, // length of data
                     getData: function($defer, params) {
-                        $defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                        Salles.all(function(salles) {
+                            params.total(salles.length);
+                            $defer.resolve(salles.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                        });
+
                     }
                 });
 
-                // Modals for creation and update
+                // CREATE
                 $scope.addSalle = function() {
                     var modalInstance = $modal.open({
                         templateUrl: 'app/core/modal.html',
-                        controller: 'ModalInstanceCtrl',
+                        controller: 'SalleCreateCtrl',
                         resolve: {
                             title: function() {
                                 return 'Creation d\'une salle'
                             },
-                            url: function() {
+                            template: function() {
                                 return 'app/salles/forms/create.html'
                             }
                         }
@@ -55,28 +41,78 @@ angular.module('salles', ['ngTable']).
                         //Flush the form ?
                     });
                 };
-                $scope.editSalle = function(salle) {
+                // READ
+                $scope.showSalle = function(salleId) {
                     var modalInstance = $modal.open({
                         templateUrl: 'app/core/modal.html',
-                        controller: 'ModalInstanceCtrl',
+                        controller: 'SalleReadCtrl',
                         resolve: {
                             title: function() {
-                                return 'Edition de la salle ' + salle.name
+                                return 'Affichage d\'une salle';
                             },
                             url: function() {
-                                return 'app/salles/forms/update.html'
+                                return 'app/salles/salle.html';
+                            },
+                            salleId: function() {
+                                return salleId;
+                            }
+                        }
+                    });
+                };
+                // UPDATE
+                $scope.editSalle = function(salleId) {
+                    var modalInstance = $modal.open({
+                        templateUrl: 'app/core/modal.html',
+                        controller: 'SalleUpdateCtrl',
+                        resolve: {
+                            title: function() {
+                                return 'Edition d\'une salle';
+                            },
+                            url: function() {
+                                return 'app/salles/forms/update.html';
+                            }
+                        }
+                    });
+                };
+                // DELETE
+                $scope.deleteSalle = function(salleId) {
+                    var modalInstance = $modal.open({
+                        templateUrl: 'app/core/modal.html',
+                        controller: 'SalleDeleteCtrl',
+                        resolve: {
+                            title: function() {
+                                return 'Suppression d\'une salle';
+                            },
+                            url: function() {
+                                return 'app/salles/forms/delete.html'
                             }
                         }
                     });
                 };
             }]).
-        controller('ModalInstanceCtrl', ['$scope', '$modalInstance', 'title', 'url', function($scope, $modalInstance, title, url) {
-                $scope.title = title;
-                $scope.url = url;
+        controller('SalleCreateCtrl', ['$scope', '$modalInstance', 'title', 'template', function($scope, $modalInstance, title, template) {
+                $scope.modal.title = title;
+                $scope.modal.template = url;
+                $scope.submitForm = function() {
+                    if ($scope.userForm.$valid) {
+                        alert('Profil enregistré');
+                    }
+                };
                 $scope.ok = function() {
                     $modalInstance.close();
                 };
                 $scope.cancel = function() {
                     $modalInstance.dismiss('cancel');
                 };
-            }]);
+            }]).
+        controller('SalleReadCtrl', ['$scope', '$modalInstance', 'title', 'template', 'Salles', 'salleId', function($scope, $modalInstance, title, template, Salles, salleId) {
+                $scope.modal.title = title;
+                $scope.modal.template = template;
+                $scope.salle = Salles.show({id: salleId});
+                $scope.ok = function() {
+                    $modalInstance.close();
+                };
+                $scope.cancel = function() {
+                    $modalInstance.dismiss('cancel');
+                };
+            }])
