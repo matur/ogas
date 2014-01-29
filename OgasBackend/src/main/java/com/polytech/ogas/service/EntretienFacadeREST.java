@@ -26,7 +26,7 @@ import javax.ws.rs.core.MediaType;
  * @author epulapp
  */
 @Stateless
-@Path("entretien")
+@Path("entretiens")
 public class EntretienFacadeREST extends AbstractFacade<Entretien> {
     
     public EntretienFacadeREST() {
@@ -41,27 +41,26 @@ public class EntretienFacadeREST extends AbstractFacade<Entretien> {
     }
 
     @PUT
-    @Path("edit/{id}")
+    @Path("{id}")
     @Consumes({MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, Entretien entity) {
         super.edit(entity);
     }
 
     @DELETE
-    @Path("remove/{id}")
+    @Path("{id}")
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 
     @GET
-    @Path("find/{id}")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Entretien find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
-    @Path("findAll")
     @Override
     @Produces(MediaType.APPLICATION_JSON)
     public List<Entretien> findAll() {

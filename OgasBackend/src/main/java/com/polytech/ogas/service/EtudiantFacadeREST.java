@@ -10,6 +10,7 @@ import com.polytech.ogas.Etudiant;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -23,7 +24,7 @@ import javax.ws.rs.core.MediaType;
  * @author epulapp
  */
 @Stateless
-@Path("/etudiant")
+@Path("etudiants")
 public class EtudiantFacadeREST extends AbstractFacade<Etudiant> {
     
     public EtudiantFacadeREST() {
@@ -38,27 +39,26 @@ public class EtudiantFacadeREST extends AbstractFacade<Etudiant> {
     }
 
     @PUT
-    @Path("edit/{id}")
+    @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void edit(@PathParam("id") Integer id, Etudiant entity) {
         super.edit(entity);
     }
 
-    @GET
-    @Path("remove/{id}")
+    @DELETE
+    @Path("{id}")
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 
     @GET
-    @Path("find/{id}")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Etudiant find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
-    @Path("findAll")
     @Override
     @Produces(MediaType.APPLICATION_JSON)
     public List<Etudiant> findAll() {
