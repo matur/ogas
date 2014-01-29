@@ -41,3 +41,7 @@
     width: 180px;
     text-align: center;
 }
+
+.nav-tabs>li{
+    cursor: pointer;
+}
