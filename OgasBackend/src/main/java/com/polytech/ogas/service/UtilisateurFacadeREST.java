@@ -9,8 +9,6 @@ package com.polytech.ogas.service;
 import com.polytech.ogas.Utilisateur;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -26,7 +24,7 @@ import javax.ws.rs.core.MediaType;
  * @author epulapp
  */
 @Stateless
-@Path("/utilisateur")
+@Path("utilisateur")
 public class UtilisateurFacadeREST extends AbstractFacade<Utilisateur> {
     
     public UtilisateurFacadeREST() {
@@ -43,20 +41,20 @@ public class UtilisateurFacadeREST extends AbstractFacade<Utilisateur> {
     @PUT
     @Path("edit/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void edit(@PathParam("id") Short id, Utilisateur entity) {
+    public void edit(@PathParam("id") Integer id, Utilisateur entity) {
         super.edit(entity);
     }
 
     @DELETE
     @Path("remove/{id}")
-    public void remove(@PathParam("id") Short id) {
+    public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 
     @GET
     @Path("find/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Utilisateur find(@PathParam("id") Short id) {
+    public Utilisateur find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
@@ -80,5 +78,6 @@ public class UtilisateurFacadeREST extends AbstractFacade<Utilisateur> {
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
         return String.valueOf(super.count());
-    }    
+    }
+
 }

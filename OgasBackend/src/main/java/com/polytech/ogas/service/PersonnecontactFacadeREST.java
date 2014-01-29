@@ -6,7 +6,7 @@
 
 package com.polytech.ogas.service;
 
-import com.polytech.ogas.Evenement;
+import com.polytech.ogas.Personnecontact;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
@@ -24,52 +24,51 @@ import javax.ws.rs.core.MediaType;
  * @author epulapp
  */
 @Stateless
-@Path("evenement")
-public class EvenementFacadeREST extends AbstractFacade<Evenement> {
+@Path("personnecontact")
+public class PersonnecontactFacadeREST extends AbstractFacade<Personnecontact> {
     
-    public EvenementFacadeREST() {
-        super(Evenement.class);
+    public PersonnecontactFacadeREST() {
+        super(Personnecontact.class);
     }
 
     @POST
     @Override
     @Consumes(MediaType.APPLICATION_JSON)
-    public void create(Evenement entity) {
+    public void create(Personnecontact entity) {
         super.create(entity);
     }
 
     @PUT
-    @Path("edit/{id}")
+    @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void edit(@PathParam("id") Integer id, Evenement entity) {
+    public void edit(@PathParam("id") Integer id, Personnecontact entity) {
         super.edit(entity);
     }
 
     @DELETE
-    @Path("remove/{id}")
+    @Path("{id}")
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 
     @GET
-    @Path("find/{id}")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Evenement find(@PathParam("id") Integer id) {
+    public Personnecontact find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
-    @Path("findAll")
     @Override
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Evenement> findAll() {
+    public List<Personnecontact> findAll() {
         return super.findAll();
     }
 
     @GET
-    @Path("findRange/{from}/{to}")
+    @Path("{from}/{to}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Evenement> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Personnecontact> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

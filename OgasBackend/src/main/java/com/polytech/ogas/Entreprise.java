@@ -11,15 +11,17 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  *
@@ -30,183 +32,175 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Entreprise.findAll", query = "SELECT e FROM Entreprise e"),
-    @NamedQuery(name = "Entreprise.findByEntId", query = "SELECT e FROM Entreprise e WHERE e.entId = :entId"),
-    @NamedQuery(name = "Entreprise.findByEntRaison", query = "SELECT e FROM Entreprise e WHERE e.entRaison = :entRaison"),
-    @NamedQuery(name = "Entreprise.findByEntNaf", query = "SELECT e FROM Entreprise e WHERE e.entNaf = :entNaf"),
-    @NamedQuery(name = "Entreprise.findByEntSiret", query = "SELECT e FROM Entreprise e WHERE e.entSiret = :entSiret"),
-    @NamedQuery(name = "Entreprise.findByEntEffectif", query = "SELECT e FROM Entreprise e WHERE e.entEffectif = :entEffectif"),
-    @NamedQuery(name = "Entreprise.findByEntOrganisme", query = "SELECT e FROM Entreprise e WHERE e.entOrganisme = :entOrganisme"),
-    @NamedQuery(name = "Entreprise.findByEntAdresse", query = "SELECT e FROM Entreprise e WHERE e.entAdresse = :entAdresse"),
-    @NamedQuery(name = "Entreprise.findByEntAdresse2", query = "SELECT e FROM Entreprise e WHERE e.entAdresse2 = :entAdresse2"),
-    @NamedQuery(name = "Entreprise.findByEntCp", query = "SELECT e FROM Entreprise e WHERE e.entCp = :entCp"),
-    @NamedQuery(name = "Entreprise.findByEntVille", query = "SELECT e FROM Entreprise e WHERE e.entVille = :entVille"),
-    @NamedQuery(name = "Entreprise.findByEntTel", query = "SELECT e FROM Entreprise e WHERE e.entTel = :entTel"),
-    @NamedQuery(name = "Entreprise.findByEntAnneparticipforum", query = "SELECT e FROM Entreprise e WHERE e.entAnneparticipforum = :entAnneparticipforum"),
-    @NamedQuery(name = "Entreprise.findByEntNbrapprenti", query = "SELECT e FROM Entreprise e WHERE e.entNbrapprenti = :entNbrapprenti")})
+    @NamedQuery(name = "Entreprise.findById", query = "SELECT e FROM Entreprise e WHERE e.id = :id"),
+    @NamedQuery(name = "Entreprise.findByRaison", query = "SELECT e FROM Entreprise e WHERE e.raison = :raison"),
+    @NamedQuery(name = "Entreprise.findByNaf", query = "SELECT e FROM Entreprise e WHERE e.naf = :naf"),
+    @NamedQuery(name = "Entreprise.findBySiret", query = "SELECT e FROM Entreprise e WHERE e.siret = :siret"),
+    @NamedQuery(name = "Entreprise.findByEffectif", query = "SELECT e FROM Entreprise e WHERE e.effectif = :effectif"),
+    @NamedQuery(name = "Entreprise.findByOrganisme", query = "SELECT e FROM Entreprise e WHERE e.organisme = :organisme"),
+    @NamedQuery(name = "Entreprise.findByAdresse", query = "SELECT e FROM Entreprise e WHERE e.adresse = :adresse"),
+    @NamedQuery(name = "Entreprise.findByAdresse2", query = "SELECT e FROM Entreprise e WHERE e.adresse2 = :adresse2"),
+    @NamedQuery(name = "Entreprise.findByCp", query = "SELECT e FROM Entreprise e WHERE e.cp = :cp"),
+    @NamedQuery(name = "Entreprise.findByVille", query = "SELECT e FROM Entreprise e WHERE e.ville = :ville"),
+    @NamedQuery(name = "Entreprise.findByTel", query = "SELECT e FROM Entreprise e WHERE e.tel = :tel"),
+    @NamedQuery(name = "Entreprise.findByAnneparticipforum", query = "SELECT e FROM Entreprise e WHERE e.anneparticipforum = :anneparticipforum"),
+    @NamedQuery(name = "Entreprise.findByNbrapprenti", query = "SELECT e FROM Entreprise e WHERE e.nbrapprenti = :nbrapprenti")})
+@XmlType(propOrder={"id","raison","naf","siret","effectif","organisme","adresse","adresse2","cp","ville","tel","anneparticipationforum","nbapprenti"})
 public class Entreprise implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "ent_id")
-    private Short entId;
+    @Column(name = "id")
+    private Integer id;
     @Size(max = 2147483647)
-    @Column(name = "ent_raison")
-    private String entRaison;
+    @Column(name = "raison")
+    private String raison;
     @Size(max = 2147483647)
-    @Column(name = "ent_naf")
-    private String entNaf;
+    @Column(name = "naf")
+    private String naf;
     @Size(max = 2147483647)
-    @Column(name = "ent_siret")
-    private String entSiret;
-    @Column(name = "ent_effectif")
-    private Short entEffectif;
+    @Column(name = "siret")
+    private String siret;
+    @Column(name = "effectif")
+    private Short effectif;
     @Size(max = 2147483647)
-    @Column(name = "ent_organisme")
-    private String entOrganisme;
+    @Column(name = "organisme")
+    private String organisme;
     @Size(max = 2147483647)
-    @Column(name = "ent_adresse")
-    private String entAdresse;
+    @Column(name = "adresse")
+    private String adresse;
     @Size(max = 2147483647)
-    @Column(name = "ent_adresse2")
-    private String entAdresse2;
+    @Column(name = "adresse2")
+    private String adresse2;
     @Size(max = 2147483647)
-    @Column(name = "ent_cp")
-    private String entCp;
+    @Column(name = "cp")
+    private String cp;
     @Size(max = 2147483647)
-    @Column(name = "ent_ville")
-    private String entVille;
+    @Column(name = "ville")
+    private String ville;
     @Size(max = 2147483647)
-    @Column(name = "ent_tel")
-    private String entTel;
+    @Column(name = "tel")
+    private String tel;
     @Size(max = 2147483647)
-    @Column(name = "ent_anneparticipforum")
-    private String entAnneparticipforum;
-    @Column(name = "ent_nbrapprenti")
-    private Short entNbrapprenti;
-    @OneToMany(mappedBy = "persentID")
-    private Collection<PersonneContact> personneContactCollection;
-    @OneToMany(mappedBy = "etrentID")
+    @Column(name = "anneparticipforum")
+    private String anneparticipforum;
+    @Column(name = "nbrapprenti")
+    private Short nbrapprenti;
+    @OneToMany(mappedBy = "entid")
     private Collection<Entretien> entretienCollection;
+    @OneToMany(mappedBy = "entid")
+    private Collection<Personnecontact> personnecontactCollection;
 
     public Entreprise() {
     }
 
-    public Entreprise(Short entId) {
-        this.entId = entId;
+    public Entreprise(Integer id) {
+        this.id = id;
     }
 
-    public Short getEntId() {
-        return entId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setEntId(Short entId) {
-        this.entId = entId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getEntRaison() {
-        return entRaison;
+    public String getRaison() {
+        return raison;
     }
 
-    public void setEntRaison(String entRaison) {
-        this.entRaison = entRaison;
+    public void setRaison(String raison) {
+        this.raison = raison;
     }
 
-    public String getEntNaf() {
-        return entNaf;
+    public String getNaf() {
+        return naf;
     }
 
-    public void setEntNaf(String entNaf) {
-        this.entNaf = entNaf;
+    public void setNaf(String naf) {
+        this.naf = naf;
     }
 
-    public String getEntSiret() {
-        return entSiret;
+    public String getSiret() {
+        return siret;
     }
 
-    public void setEntSiret(String entSiret) {
-        this.entSiret = entSiret;
+    public void setSiret(String siret) {
+        this.siret = siret;
     }
 
-    public Short getEntEffectif() {
-        return entEffectif;
+    public Short getEffectif() {
+        return effectif;
     }
 
-    public void setEntEffectif(Short entEffectif) {
-        this.entEffectif = entEffectif;
+    public void setEffectif(Short effectif) {
+        this.effectif = effectif;
     }
 
-    public String getEntOrganisme() {
-        return entOrganisme;
+    public String getOrganisme() {
+        return organisme;
     }
 
-    public void setEntOrganisme(String entOrganisme) {
-        this.entOrganisme = entOrganisme;
+    public void setOrganisme(String organisme) {
+        this.organisme = organisme;
     }
 
-    public String getEntAdresse() {
-        return entAdresse;
+    public String getAdresse() {
+        return adresse;
     }
 
-    public void setEntAdresse(String entAdresse) {
-        this.entAdresse = entAdresse;
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 
-    public String getEntAdresse2() {
-        return entAdresse2;
+    public String getAdresse2() {
+        return adresse2;
     }
 
-    public void setEntAdresse2(String entAdresse2) {
-        this.entAdresse2 = entAdresse2;
+    public void setAdresse2(String adresse2) {
+        this.adresse2 = adresse2;
     }
 
-    public String getEntCp() {
-        return entCp;
+    public String getCp() {
+        return cp;
     }
 
-    public void setEntCp(String entCp) {
-        this.entCp = entCp;
+    public void setCp(String cp) {
+        this.cp = cp;
     }
 
-    public String getEntVille() {
-        return entVille;
+    public String getVille() {
+        return ville;
     }
 
-    public void setEntVille(String entVille) {
-        this.entVille = entVille;
+    public void setVille(String ville) {
+        this.ville = ville;
     }
 
-    public String getEntTel() {
-        return entTel;
+    public String getTel() {
+        return tel;
     }
 
-    public void setEntTel(String entTel) {
-        this.entTel = entTel;
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 
-    public String getEntAnneparticipforum() {
-        return entAnneparticipforum;
+    public String getAnneparticipforum() {
+        return anneparticipforum;
     }
 
-    public void setEntAnneparticipforum(String entAnneparticipforum) {
-        this.entAnneparticipforum = entAnneparticipforum;
+    public void setAnneparticipforum(String anneparticipforum) {
+        this.anneparticipforum = anneparticipforum;
     }
 
-    public Short getEntNbrapprenti() {
-        return entNbrapprenti;
+    public Short getNbrapprenti() {
+        return nbrapprenti;
     }
 
-    public void setEntNbrapprenti(Short entNbrapprenti) {
-        this.entNbrapprenti = entNbrapprenti;
-    }
-
-    @XmlTransient
-    public Collection<PersonneContact> getPersonneContactCollection() {
-        return personneContactCollection;
-    }
-
-    public void setPersonneContactCollection(Collection<PersonneContact> personneContactCollection) {
-        this.personneContactCollection = personneContactCollection;
+    public void setNbrapprenti(Short nbrapprenti) {
+        this.nbrapprenti = nbrapprenti;
     }
 
     @XmlTransient
@@ -218,10 +212,19 @@ public class Entreprise implements Serializable {
         this.entretienCollection = entretienCollection;
     }
 
+    @XmlTransient
+    public Collection<Personnecontact> getPersonnecontactCollection() {
+        return personnecontactCollection;
+    }
+
+    public void setPersonnecontactCollection(Collection<Personnecontact> personnecontactCollection) {
+        this.personnecontactCollection = personnecontactCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (entId != null ? entId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -232,7 +235,7 @@ public class Entreprise implements Serializable {
             return false;
         }
         Entreprise other = (Entreprise) object;
-        if ((this.entId == null && other.entId != null) || (this.entId != null && !this.entId.equals(other.entId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -240,7 +243,7 @@ public class Entreprise implements Serializable {
 
     @Override
     public String toString() {
-        return "com.polytech.ogas.Entreprise[ entId=" + entId + " ]";
+        return "com.polytech.ogas.Entreprise[ id=" + id + " ]";
     }
     
 }

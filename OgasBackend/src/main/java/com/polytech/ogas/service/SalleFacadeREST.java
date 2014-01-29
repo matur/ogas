@@ -9,8 +9,6 @@ package com.polytech.ogas.service;
 import com.polytech.ogas.Salle;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -26,11 +24,9 @@ import javax.ws.rs.core.MediaType;
  * @author epulapp
  */
 @Stateless
-@Path("/salle")
+@Path("salle")
 public class SalleFacadeREST extends AbstractFacade<Salle> {
-    @PersistenceContext(unitName = "OgasBackend")
-    private EntityManager em;
-
+   
     public SalleFacadeREST() {
         super(Salle.class);
     }
@@ -45,7 +41,7 @@ public class SalleFacadeREST extends AbstractFacade<Salle> {
     @PUT
     @Path("edit/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void edit(@PathParam("id") Short id, Salle entity) {
+    public void edit(@PathParam("id") Integer id, Salle entity) {
         super.edit(entity);
     }
 
@@ -58,7 +54,7 @@ public class SalleFacadeREST extends AbstractFacade<Salle> {
     @GET
     @Path("find/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Salle find(@PathParam("id") Short id) {
+    public Salle find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
@@ -83,5 +79,5 @@ public class SalleFacadeREST extends AbstractFacade<Salle> {
     public String countREST() {
         return String.valueOf(super.count());
     }
-    
+
 }

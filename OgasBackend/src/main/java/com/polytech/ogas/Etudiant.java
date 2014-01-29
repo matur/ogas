@@ -12,6 +12,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -19,10 +21,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  *
@@ -33,375 +35,377 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Etudiant.findAll", query = "SELECT e FROM Etudiant e"),
-    @NamedQuery(name = "Etudiant.findByEtuId", query = "SELECT e FROM Etudiant e WHERE e.etuId = :etuId"),
-    @NamedQuery(name = "Etudiant.findByEtuCandidid", query = "SELECT e FROM Etudiant e WHERE e.etuCandidid = :etuCandidid"),
-    @NamedQuery(name = "Etudiant.findByEtuCivilite", query = "SELECT e FROM Etudiant e WHERE e.etuCivilite = :etuCivilite"),
-    @NamedQuery(name = "Etudiant.findByEtuNom", query = "SELECT e FROM Etudiant e WHERE e.etuNom = :etuNom"),
-    @NamedQuery(name = "Etudiant.findByEtuPrenom", query = "SELECT e FROM Etudiant e WHERE e.etuPrenom = :etuPrenom"),
-    @NamedQuery(name = "Etudiant.findByEtuDatenaissance", query = "SELECT e FROM Etudiant e WHERE e.etuDatenaissance = :etuDatenaissance"),
-    @NamedQuery(name = "Etudiant.findByEtuAdresse", query = "SELECT e FROM Etudiant e WHERE e.etuAdresse = :etuAdresse"),
-    @NamedQuery(name = "Etudiant.findByEtuCp", query = "SELECT e FROM Etudiant e WHERE e.etuCp = :etuCp"),
-    @NamedQuery(name = "Etudiant.findByEtuVille", query = "SELECT e FROM Etudiant e WHERE e.etuVille = :etuVille"),
-    @NamedQuery(name = "Etudiant.findByEtuTelfixe", query = "SELECT e FROM Etudiant e WHERE e.etuTelfixe = :etuTelfixe"),
-    @NamedQuery(name = "Etudiant.findByEtuTelportable", query = "SELECT e FROM Etudiant e WHERE e.etuTelportable = :etuTelportable"),
-    @NamedQuery(name = "Etudiant.findByEtuEmail", query = "SELECT e FROM Etudiant e WHERE e.etuEmail = :etuEmail"),
-    @NamedQuery(name = "Etudiant.findByEtuBacannee", query = "SELECT e FROM Etudiant e WHERE e.etuBacannee = :etuBacannee"),
-    @NamedQuery(name = "Etudiant.findByEtuBacmention", query = "SELECT e FROM Etudiant e WHERE e.etuBacmention = :etuBacmention"),
-    @NamedQuery(name = "Etudiant.findByEtuBactype", query = "SELECT e FROM Etudiant e WHERE e.etuBactype = :etuBactype"),
-    @NamedQuery(name = "Etudiant.findByEtuDiplome", query = "SELECT e FROM Etudiant e WHERE e.etuDiplome = :etuDiplome"),
-    @NamedQuery(name = "Etudiant.findByEtuDiplomeannee", query = "SELECT e FROM Etudiant e WHERE e.etuDiplomeannee = :etuDiplomeannee"),
-    @NamedQuery(name = "Etudiant.findByEtuFormation", query = "SELECT e FROM Etudiant e WHERE e.etuFormation = :etuFormation"),
-    @NamedQuery(name = "Etudiant.findByEtuTypediplome", query = "SELECT e FROM Etudiant e WHERE e.etuTypediplome = :etuTypediplome"),
-    @NamedQuery(name = "Etudiant.findByEtuEtab", query = "SELECT e FROM Etudiant e WHERE e.etuEtab = :etuEtab"),
-    @NamedQuery(name = "Etudiant.findByEtuEtabcp", query = "SELECT e FROM Etudiant e WHERE e.etuEtabcp = :etuEtabcp"),
-    @NamedQuery(name = "Etudiant.findByEtuEtabville", query = "SELECT e FROM Etudiant e WHERE e.etuEtabville = :etuEtabville"),
-    @NamedQuery(name = "Etudiant.findByEtuNivanglais", query = "SELECT e FROM Etudiant e WHERE e.etuNivanglais = :etuNivanglais"),
-    @NamedQuery(name = "Etudiant.findByEtuClassement", query = "SELECT e FROM Etudiant e WHERE e.etuClassement = :etuClassement"),
-    @NamedQuery(name = "Etudiant.findByEtuCv", query = "SELECT e FROM Etudiant e WHERE e.etuCv = :etuCv"),
-    @NamedQuery(name = "Etudiant.findByEtuLettremotiv", query = "SELECT e FROM Etudiant e WHERE e.etuLettremotiv = :etuLettremotiv"),
-    @NamedQuery(name = "Etudiant.findByEtuAvispoursuite", query = "SELECT e FROM Etudiant e WHERE e.etuAvispoursuite = :etuAvispoursuite"),
-    @NamedQuery(name = "Etudiant.findByEtuAvisperso", query = "SELECT e FROM Etudiant e WHERE e.etuAvisperso = :etuAvisperso"),
-    @NamedQuery(name = "Etudiant.findByEtuRmq", query = "SELECT e FROM Etudiant e WHERE e.etuRmq = :etuRmq"),
-    @NamedQuery(name = "Etudiant.findByEtuCandidstatut", query = "SELECT e FROM Etudiant e WHERE e.etuCandidstatut = :etuCandidstatut")})
+    @NamedQuery(name = "Etudiant.findById", query = "SELECT e FROM Etudiant e WHERE e.id = :id"),
+    @NamedQuery(name = "Etudiant.findByCandidid", query = "SELECT e FROM Etudiant e WHERE e.candidid = :candidid"),
+    @NamedQuery(name = "Etudiant.findByCivilite", query = "SELECT e FROM Etudiant e WHERE e.civilite = :civilite"),
+    @NamedQuery(name = "Etudiant.findByNom", query = "SELECT e FROM Etudiant e WHERE e.nom = :nom"),
+    @NamedQuery(name = "Etudiant.findByPrenom", query = "SELECT e FROM Etudiant e WHERE e.prenom = :prenom"),
+    @NamedQuery(name = "Etudiant.findByDatenaissance", query = "SELECT e FROM Etudiant e WHERE e.datenaissance = :datenaissance"),
+    @NamedQuery(name = "Etudiant.findByAdresse", query = "SELECT e FROM Etudiant e WHERE e.adresse = :adresse"),
+    @NamedQuery(name = "Etudiant.findByCp", query = "SELECT e FROM Etudiant e WHERE e.cp = :cp"),
+    @NamedQuery(name = "Etudiant.findByVille", query = "SELECT e FROM Etudiant e WHERE e.ville = :ville"),
+    @NamedQuery(name = "Etudiant.findByTelfixe", query = "SELECT e FROM Etudiant e WHERE e.telfixe = :telfixe"),
+    @NamedQuery(name = "Etudiant.findByTelportable", query = "SELECT e FROM Etudiant e WHERE e.telportable = :telportable"),
+    @NamedQuery(name = "Etudiant.findByEmail", query = "SELECT e FROM Etudiant e WHERE e.email = :email"),
+    @NamedQuery(name = "Etudiant.findByBacannee", query = "SELECT e FROM Etudiant e WHERE e.bacannee = :bacannee"),
+    @NamedQuery(name = "Etudiant.findByBacmention", query = "SELECT e FROM Etudiant e WHERE e.bacmention = :bacmention"),
+    @NamedQuery(name = "Etudiant.findByBactype", query = "SELECT e FROM Etudiant e WHERE e.bactype = :bactype"),
+    @NamedQuery(name = "Etudiant.findByDiplome", query = "SELECT e FROM Etudiant e WHERE e.diplome = :diplome"),
+    @NamedQuery(name = "Etudiant.findByDiplomeannee", query = "SELECT e FROM Etudiant e WHERE e.diplomeannee = :diplomeannee"),
+    @NamedQuery(name = "Etudiant.findByFormation", query = "SELECT e FROM Etudiant e WHERE e.formation = :formation"),
+    @NamedQuery(name = "Etudiant.findByTypediplome", query = "SELECT e FROM Etudiant e WHERE e.typediplome = :typediplome"),
+    @NamedQuery(name = "Etudiant.findByEtab", query = "SELECT e FROM Etudiant e WHERE e.etab = :etab"),
+    @NamedQuery(name = "Etudiant.findByEtabcp", query = "SELECT e FROM Etudiant e WHERE e.etabcp = :etabcp"),
+    @NamedQuery(name = "Etudiant.findByEtabville", query = "SELECT e FROM Etudiant e WHERE e.etabville = :etabville"),
+    @NamedQuery(name = "Etudiant.findByNivanglais", query = "SELECT e FROM Etudiant e WHERE e.nivanglais = :nivanglais"),
+    @NamedQuery(name = "Etudiant.findByClassement", query = "SELECT e FROM Etudiant e WHERE e.classement = :classement"),
+    @NamedQuery(name = "Etudiant.findByCv", query = "SELECT e FROM Etudiant e WHERE e.cv = :cv"),
+    @NamedQuery(name = "Etudiant.findByLettremotiv", query = "SELECT e FROM Etudiant e WHERE e.lettremotiv = :lettremotiv"),
+    @NamedQuery(name = "Etudiant.findByAvispoursuite", query = "SELECT e FROM Etudiant e WHERE e.avispoursuite = :avispoursuite"),
+    @NamedQuery(name = "Etudiant.findByAvisperso", query = "SELECT e FROM Etudiant e WHERE e.avisperso = :avisperso"),
+    @NamedQuery(name = "Etudiant.findByRmq", query = "SELECT e FROM Etudiant e WHERE e.rmq = :rmq"),
+    @NamedQuery(name = "Etudiant.findByCandidstatut", query = "SELECT e FROM Etudiant e WHERE e.candidstatut = :candidstatut")})
+@XmlType(propOrder={"id","candidid","civilite","nom","prenom","datenaissance","adresse","cp","ville","telfixe","telportable","email","bacannee","bacmention","bactype","diplome","diplomeannee","formation","typediplome","etab","etabcp","etabville","nivanglais","classement","classement","cv","lettremotiv","avispoursuite","avisperso","rmq","candidstatut"})
 public class Etudiant implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "etu_id")
-    private Short etuId;
-    @Column(name = "etu_candidid")
-    private Short etuCandidid;
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "candidid")
+    private Short candidid;
     @Size(max = 2147483647)
-    @Column(name = "etu_civilite")
-    private String etuCivilite;
+    @Column(name = "civilite")
+    private String civilite;
     @Size(max = 2147483647)
-    @Column(name = "etu_nom")
-    private String etuNom;
+    @Column(name = "nom")
+    private String nom;
     @Size(max = 2147483647)
-    @Column(name = "etu_prenom")
-    private String etuPrenom;
-    @Column(name = "etu_datenaissance")
+    @Column(name = "prenom")
+    private String prenom;
+    @Column(name = "datenaissance")
     @Temporal(TemporalType.DATE)
-    private Date etuDatenaissance;
+    private Date datenaissance;
     @Size(max = 2147483647)
-    @Column(name = "etu_adresse")
-    private String etuAdresse;
+    @Column(name = "adresse")
+    private String adresse;
     @Size(max = 2147483647)
-    @Column(name = "etu_cp")
-    private String etuCp;
+    @Column(name = "cp")
+    private String cp;
     @Size(max = 2147483647)
-    @Column(name = "etu_ville")
-    private String etuVille;
+    @Column(name = "ville")
+    private String ville;
     @Size(max = 2147483647)
-    @Column(name = "etu_telfixe")
-    private String etuTelfixe;
+    @Column(name = "telfixe")
+    private String telfixe;
     @Size(max = 2147483647)
-    @Column(name = "etu_telportable")
-    private String etuTelportable;
+    @Column(name = "telportable")
+    private String telportable;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 2147483647)
-    @Column(name = "etu_email")
-    private String etuEmail;
-    @Column(name = "etu_bacannee")
-    private Short etuBacannee;
+    @Column(name = "email")
+    private String email;
+    @Column(name = "bacannee")
+    private Short bacannee;
     @Size(max = 2147483647)
-    @Column(name = "etu_bacmention")
-    private String etuBacmention;
+    @Column(name = "bacmention")
+    private String bacmention;
     @Size(max = 2147483647)
-    @Column(name = "etu_bactype")
-    private String etuBactype;
+    @Column(name = "bactype")
+    private String bactype;
     @Size(max = 2147483647)
-    @Column(name = "etu_diplome")
-    private String etuDiplome;
-    @Column(name = "etu_diplomeannee")
-    private Short etuDiplomeannee;
+    @Column(name = "diplome")
+    private String diplome;
+    @Column(name = "diplomeannee")
+    private Short diplomeannee;
     @Size(max = 2147483647)
-    @Column(name = "etu_formation")
-    private String etuFormation;
+    @Column(name = "formation")
+    private String formation;
     @Size(max = 2147483647)
-    @Column(name = "etu_typediplome")
-    private String etuTypediplome;
+    @Column(name = "typediplome")
+    private String typediplome;
     @Size(max = 2147483647)
-    @Column(name = "etu_etab")
-    private String etuEtab;
+    @Column(name = "etab")
+    private String etab;
     @Size(max = 2147483647)
-    @Column(name = "etu_etabcp")
-    private String etuEtabcp;
+    @Column(name = "etabcp")
+    private String etabcp;
     @Size(max = 2147483647)
-    @Column(name = "etu_etabville")
-    private String etuEtabville;
+    @Column(name = "etabville")
+    private String etabville;
     @Size(max = 2147483647)
-    @Column(name = "etu_nivanglais")
-    private String etuNivanglais;
+    @Column(name = "nivanglais")
+    private String nivanglais;
     @Size(max = 2147483647)
-    @Column(name = "etu_classement")
-    private String etuClassement;
+    @Column(name = "classement")
+    private String classement;
     @Size(max = 2147483647)
-    @Column(name = "etu_cv")
-    private String etuCv;
+    @Column(name = "cv")
+    private String cv;
     @Size(max = 2147483647)
-    @Column(name = "etu_lettremotiv")
-    private String etuLettremotiv;
+    @Column(name = "lettremotiv")
+    private String lettremotiv;
     @Size(max = 2147483647)
-    @Column(name = "etu_avispoursuite")
-    private String etuAvispoursuite;
+    @Column(name = "avispoursuite")
+    private String avispoursuite;
     @Size(max = 2147483647)
-    @Column(name = "etu_avisperso")
-    private String etuAvisperso;
+    @Column(name = "avisperso")
+    private String avisperso;
     @Size(max = 2147483647)
-    @Column(name = "etu_rmq")
-    private String etuRmq;
+    @Column(name = "rmq")
+    private String rmq;
     @Size(max = 2147483647)
-    @Column(name = "etu_candidstatut")
-    private String etuCandidstatut;
-    @OneToMany(mappedBy = "etretuID")
+    @Column(name = "candidstatut")
+    private String candidstatut;
+    @OneToMany(mappedBy = "etuid")
     private Collection<Entretien> entretienCollection;
 
     public Etudiant() {
     }
 
-    public Etudiant(Short etuId) {
-        this.etuId = etuId;
+    public Etudiant(Integer id) {
+        this.id = id;
     }
 
-    public Short getEtuId() {
-        return etuId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setEtuId(Short etuId) {
-        this.etuId = etuId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Short getEtuCandidid() {
-        return etuCandidid;
+    public Short getCandidid() {
+        return candidid;
     }
 
-    public void setEtuCandidid(Short etuCandidid) {
-        this.etuCandidid = etuCandidid;
+    public void setCandidid(Short candidid) {
+        this.candidid = candidid;
     }
 
-    public String getEtuCivilite() {
-        return etuCivilite;
+    public String getCivilite() {
+        return civilite;
     }
 
-    public void setEtuCivilite(String etuCivilite) {
-        this.etuCivilite = etuCivilite;
+    public void setCivilite(String civilite) {
+        this.civilite = civilite;
     }
 
-    public String getEtuNom() {
-        return etuNom;
+    public String getNom() {
+        return nom;
     }
 
-    public void setEtuNom(String etuNom) {
-        this.etuNom = etuNom;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public String getEtuPrenom() {
-        return etuPrenom;
+    public String getPrenom() {
+        return prenom;
     }
 
-    public void setEtuPrenom(String etuPrenom) {
-        this.etuPrenom = etuPrenom;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
     }
 
-    public Date getEtuDatenaissance() {
-        return etuDatenaissance;
+    public Date getDatenaissance() {
+        return datenaissance;
     }
 
-    public void setEtuDatenaissance(Date etuDatenaissance) {
-        this.etuDatenaissance = etuDatenaissance;
+    public void setDatenaissance(Date datenaissance) {
+        this.datenaissance = datenaissance;
     }
 
-    public String getEtuAdresse() {
-        return etuAdresse;
+    public String getAdresse() {
+        return adresse;
     }
 
-    public void setEtuAdresse(String etuAdresse) {
-        this.etuAdresse = etuAdresse;
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 
-    public String getEtuCp() {
-        return etuCp;
+    public String getCp() {
+        return cp;
     }
 
-    public void setEtuCp(String etuCp) {
-        this.etuCp = etuCp;
+    public void setCp(String cp) {
+        this.cp = cp;
     }
 
-    public String getEtuVille() {
-        return etuVille;
+    public String getVille() {
+        return ville;
     }
 
-    public void setEtuVille(String etuVille) {
-        this.etuVille = etuVille;
+    public void setVille(String ville) {
+        this.ville = ville;
     }
 
-    public String getEtuTelfixe() {
-        return etuTelfixe;
+    public String getTelfixe() {
+        return telfixe;
     }
 
-    public void setEtuTelfixe(String etuTelfixe) {
-        this.etuTelfixe = etuTelfixe;
+    public void setTelfixe(String telfixe) {
+        this.telfixe = telfixe;
     }
 
-    public String getEtuTelportable() {
-        return etuTelportable;
+    public String getTelportable() {
+        return telportable;
     }
 
-    public void setEtuTelportable(String etuTelportable) {
-        this.etuTelportable = etuTelportable;
+    public void setTelportable(String telportable) {
+        this.telportable = telportable;
     }
 
-    public String getEtuEmail() {
-        return etuEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEtuEmail(String etuEmail) {
-        this.etuEmail = etuEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Short getEtuBacannee() {
-        return etuBacannee;
+    public Short getBacannee() {
+        return bacannee;
     }
 
-    public void setEtuBacannee(Short etuBacannee) {
-        this.etuBacannee = etuBacannee;
+    public void setBacannee(Short bacannee) {
+        this.bacannee = bacannee;
     }
 
-    public String getEtuBacmention() {
-        return etuBacmention;
+    public String getBacmention() {
+        return bacmention;
     }
 
-    public void setEtuBacmention(String etuBacmention) {
-        this.etuBacmention = etuBacmention;
+    public void setBacmention(String bacmention) {
+        this.bacmention = bacmention;
     }
 
-    public String getEtuBactype() {
-        return etuBactype;
+    public String getBactype() {
+        return bactype;
     }
 
-    public void setEtuBactype(String etuBactype) {
-        this.etuBactype = etuBactype;
+    public void setBactype(String bactype) {
+        this.bactype = bactype;
     }
 
-    public String getEtuDiplome() {
-        return etuDiplome;
+    public String getDiplome() {
+        return diplome;
     }
 
-    public void setEtuDiplome(String etuDiplome) {
-        this.etuDiplome = etuDiplome;
+    public void setDiplome(String diplome) {
+        this.diplome = diplome;
     }
 
-    public Short getEtuDiplomeannee() {
-        return etuDiplomeannee;
+    public Short getDiplomeannee() {
+        return diplomeannee;
     }
 
-    public void setEtuDiplomeannee(Short etuDiplomeannee) {
-        this.etuDiplomeannee = etuDiplomeannee;
+    public void setDiplomeannee(Short diplomeannee) {
+        this.diplomeannee = diplomeannee;
     }
 
-    public String getEtuFormation() {
-        return etuFormation;
+    public String getFormation() {
+        return formation;
     }
 
-    public void setEtuFormation(String etuFormation) {
-        this.etuFormation = etuFormation;
+    public void setFormation(String formation) {
+        this.formation = formation;
     }
 
-    public String getEtuTypediplome() {
-        return etuTypediplome;
+    public String getTypediplome() {
+        return typediplome;
     }
 
-    public void setEtuTypediplome(String etuTypediplome) {
-        this.etuTypediplome = etuTypediplome;
+    public void setTypediplome(String typediplome) {
+        this.typediplome = typediplome;
     }
 
-    public String getEtuEtab() {
-        return etuEtab;
+    public String getEtab() {
+        return etab;
     }
 
-    public void setEtuEtab(String etuEtab) {
-        this.etuEtab = etuEtab;
+    public void setEtab(String etab) {
+        this.etab = etab;
     }
 
-    public String getEtuEtabcp() {
-        return etuEtabcp;
+    public String getEtabcp() {
+        return etabcp;
     }
 
-    public void setEtuEtabcp(String etuEtabcp) {
-        this.etuEtabcp = etuEtabcp;
+    public void setEtabcp(String etabcp) {
+        this.etabcp = etabcp;
     }
 
-    public String getEtuEtabville() {
-        return etuEtabville;
+    public String getEtabville() {
+        return etabville;
     }
 
-    public void setEtuEtabville(String etuEtabville) {
-        this.etuEtabville = etuEtabville;
+    public void setEtabville(String etabville) {
+        this.etabville = etabville;
     }
 
-    public String getEtuNivanglais() {
-        return etuNivanglais;
+    public String getNivanglais() {
+        return nivanglais;
     }
 
-    public void setEtuNivanglais(String etuNivanglais) {
-        this.etuNivanglais = etuNivanglais;
+    public void setNivanglais(String nivanglais) {
+        this.nivanglais = nivanglais;
     }
 
-    public String getEtuClassement() {
-        return etuClassement;
+    public String getClassement() {
+        return classement;
     }
 
-    public void setEtuClassement(String etuClassement) {
-        this.etuClassement = etuClassement;
+    public void setClassement(String classement) {
+        this.classement = classement;
     }
 
-    public String getEtuCv() {
-        return etuCv;
+    public String getCv() {
+        return cv;
     }
 
-    public void setEtuCv(String etuCv) {
-        this.etuCv = etuCv;
+    public void setCv(String cv) {
+        this.cv = cv;
     }
 
-    public String getEtuLettremotiv() {
-        return etuLettremotiv;
+    public String getLettremotiv() {
+        return lettremotiv;
     }
 
-    public void setEtuLettremotiv(String etuLettremotiv) {
-        this.etuLettremotiv = etuLettremotiv;
+    public void setLettremotiv(String lettremotiv) {
+        this.lettremotiv = lettremotiv;
     }
 
-    public String getEtuAvispoursuite() {
-        return etuAvispoursuite;
+    public String getAvispoursuite() {
+        return avispoursuite;
     }
 
-    public void setEtuAvispoursuite(String etuAvispoursuite) {
-        this.etuAvispoursuite = etuAvispoursuite;
+    public void setAvispoursuite(String avispoursuite) {
+        this.avispoursuite = avispoursuite;
     }
 
-    public String getEtuAvisperso() {
-        return etuAvisperso;
+    public String getAvisperso() {
+        return avisperso;
     }
 
-    public void setEtuAvisperso(String etuAvisperso) {
-        this.etuAvisperso = etuAvisperso;
+    public void setAvisperso(String avisperso) {
+        this.avisperso = avisperso;
     }
 
-    public String getEtuRmq() {
-        return etuRmq;
+    public String getRmq() {
+        return rmq;
     }
 
-    public void setEtuRmq(String etuRmq) {
-        this.etuRmq = etuRmq;
+    public void setRmq(String rmq) {
+        this.rmq = rmq;
     }
 
-    public String getEtuCandidstatut() {
-        return etuCandidstatut;
+    public String getCandidstatut() {
+        return candidstatut;
     }
 
-    public void setEtuCandidstatut(String etuCandidstatut) {
-        this.etuCandidstatut = etuCandidstatut;
+    public void setCandidstatut(String candidstatut) {
+        this.candidstatut = candidstatut;
     }
 
     @XmlTransient
@@ -416,7 +420,7 @@ public class Etudiant implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (etuId != null ? etuId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -427,7 +431,7 @@ public class Etudiant implements Serializable {
             return false;
         }
         Etudiant other = (Etudiant) object;
-        if ((this.etuId == null && other.etuId != null) || (this.etuId != null && !this.etuId.equals(other.etuId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -435,7 +439,7 @@ public class Etudiant implements Serializable {
 
     @Override
     public String toString() {
-        return "com.polytech.ogas.Etudiant[ etuId=" + etuId + " ]";
+        return "com.polytech.ogas.Etudiant[ id=" + id + " ]";
     }
     
 }

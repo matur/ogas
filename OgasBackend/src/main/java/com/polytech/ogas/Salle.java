@@ -11,15 +11,17 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  *
@@ -30,65 +32,66 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Salle.findAll", query = "SELECT s FROM Salle s"),
-    @NamedQuery(name = "Salle.findBySalleId", query = "SELECT s FROM Salle s WHERE s.salleId = :salleId"),
-    @NamedQuery(name = "Salle.findBySalleLibelle", query = "SELECT s FROM Salle s WHERE s.salleLibelle = :salleLibelle"),
-    @NamedQuery(name = "Salle.findBySalleLocalisation", query = "SELECT s FROM Salle s WHERE s.salleLocalisation = :salleLocalisation"),
-    @NamedQuery(name = "Salle.findBySalleCapacite", query = "SELECT s FROM Salle s WHERE s.salleCapacite = :salleCapacite")})
+    @NamedQuery(name = "Salle.findById", query = "SELECT s FROM Salle s WHERE s.id = :id"),
+    @NamedQuery(name = "Salle.findByLibelle", query = "SELECT s FROM Salle s WHERE s.libelle = :libelle"),
+    @NamedQuery(name = "Salle.findByLocalisation", query = "SELECT s FROM Salle s WHERE s.localisation = :localisation"),
+    @NamedQuery(name = "Salle.findByCapacite", query = "SELECT s FROM Salle s WHERE s.capacite = :capacite")})
+@XmlType(propOrder={"id","libelle","localisation","capacite"})
 public class Salle implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "salle_id")
-    private Short salleId;
+    @Column(name = "id")
+    private Integer id;
     @Size(max = 2147483647)
-    @Column(name = "salle_libelle")
-    private String salleLibelle;
+    @Column(name = "libelle")
+    private String libelle;
     @Size(max = 2147483647)
-    @Column(name = "salle_localisation")
-    private String salleLocalisation;
-    @Column(name = "salle_capacite")
-    private Short salleCapacite;
-    @OneToMany(mappedBy = "etrsalleID")
+    @Column(name = "localisation")
+    private String localisation;
+    @Column(name = "capacite")
+    private Short capacite;
+    @OneToMany(mappedBy = "salleid")
     private Collection<Entretien> entretienCollection;
 
     public Salle() {
     }
 
-    public Salle(Short salleId) {
-        this.salleId = salleId;
+    public Salle(Integer id) {
+        this.id = id;
     }
 
-    public Short getSalleId() {
-        return salleId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setSalleId(Short salleId) {
-        this.salleId = salleId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getSalleLibelle() {
-        return salleLibelle;
+    public String getLibelle() {
+        return libelle;
     }
 
-    public void setSalleLibelle(String salleLibelle) {
-        this.salleLibelle = salleLibelle;
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
     }
 
-    public String getSalleLocalisation() {
-        return salleLocalisation;
+    public String getLocalisation() {
+        return localisation;
     }
 
-    public void setSalleLocalisation(String salleLocalisation) {
-        this.salleLocalisation = salleLocalisation;
+    public void setLocalisation(String localisation) {
+        this.localisation = localisation;
     }
 
-    public Short getSalleCapacite() {
-        return salleCapacite;
+    public Short getCapacite() {
+        return capacite;
     }
 
-    public void setSalleCapacite(Short salleCapacite) {
-        this.salleCapacite = salleCapacite;
+    public void setCapacite(Short capacite) {
+        this.capacite = capacite;
     }
 
     @XmlTransient
@@ -103,7 +106,7 @@ public class Salle implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (salleId != null ? salleId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -114,7 +117,7 @@ public class Salle implements Serializable {
             return false;
         }
         Salle other = (Salle) object;
-        if ((this.salleId == null && other.salleId != null) || (this.salleId != null && !this.salleId.equals(other.salleId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -122,7 +125,7 @@ public class Salle implements Serializable {
 
     @Override
     public String toString() {
-        return "com.polytech.ogas.Salle[ salleId=" + salleId + " ]";
+        return "com.polytech.ogas.Salle[ id=" + id + " ]";
     }
     
 }

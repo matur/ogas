@@ -9,10 +9,6 @@ package com.polytech.ogas.service;
 import com.polytech.ogas.Entreprise;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -31,44 +27,41 @@ import javax.ws.rs.core.MediaType;
 @Path("entreprise")
 public class EntrepriseFacadeREST extends AbstractFacade<Entreprise> {
     
-    
-
     public EntrepriseFacadeREST() {
         super(Entreprise.class);
-        
     }
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_JSON})
+    @Consumes(MediaType.APPLICATION_JSON)
     public void create(Entreprise entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("edit/{id}")
-    @Consumes({MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Short id, Entreprise entity) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void edit(@PathParam("id") Integer id, Entreprise entity) {
         super.edit(entity);
     }
 
     @DELETE
     @Path("remove/{id}")
-    public void remove(@PathParam("id") Short id) {
+    public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 
     @GET
     @Path("find/{id}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public Entreprise find(@PathParam("id") Short id) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Entreprise find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Path("findAll")
     @Override
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Entreprise> findAll() {
         return super.findAll();
     }
@@ -85,5 +78,6 @@ public class EntrepriseFacadeREST extends AbstractFacade<Entreprise> {
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
         return String.valueOf(super.count());
-    }    
+    }
+    
 }

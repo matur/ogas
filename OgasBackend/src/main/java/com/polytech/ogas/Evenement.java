@@ -12,6 +12,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -19,10 +21,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  *
@@ -33,77 +35,78 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Evenement.findAll", query = "SELECT e FROM Evenement e"),
-    @NamedQuery(name = "Evenement.findByEvtId", query = "SELECT e FROM Evenement e WHERE e.evtId = :evtId"),
-    @NamedQuery(name = "Evenement.findByEvtType", query = "SELECT e FROM Evenement e WHERE e.evtType = :evtType"),
-    @NamedQuery(name = "Evenement.findByEvtDate", query = "SELECT e FROM Evenement e WHERE e.evtDate = :evtDate"),
-    @NamedQuery(name = "Evenement.findByEvtDuree", query = "SELECT e FROM Evenement e WHERE e.evtDuree = :evtDuree"),
-    @NamedQuery(name = "Evenement.findByEvtdureeEntretien", query = "SELECT e FROM Evenement e WHERE e.evtdureeEntretien = :evtdureeEntretien")})
+    @NamedQuery(name = "Evenement.findById", query = "SELECT e FROM Evenement e WHERE e.id = :id"),
+    @NamedQuery(name = "Evenement.findByTypeevt", query = "SELECT e FROM Evenement e WHERE e.typeevt = :typeevt"),
+    @NamedQuery(name = "Evenement.findByDateevt", query = "SELECT e FROM Evenement e WHERE e.dateevt = :dateevt"),
+    @NamedQuery(name = "Evenement.findByDuree", query = "SELECT e FROM Evenement e WHERE e.duree = :duree"),
+    @NamedQuery(name = "Evenement.findByDureeEntretien", query = "SELECT e FROM Evenement e WHERE e.dureeEntretien = :dureeEntretien")})
+@XmlType(propOrder={"id","typeevt","dateevt","duree","dureeEntretien","evtid"})
 public class Evenement implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "evt_id")
-    private Short evtId;
+    @Column(name = "id")
+    private Integer id;
     @Size(max = 2147483647)
-    @Column(name = "evt_type")
-    private String evtType;
-    @Column(name = "evt_date")
+    @Column(name = "typeevt")
+    private String typeevt;
+    @Column(name = "dateevt")
     @Temporal(TemporalType.DATE)
-    private Date evtDate;
+    private Date dateevt;
     @Size(max = 2147483647)
-    @Column(name = "evt_duree")
-    private String evtDuree;
-    @Column(name = "evt_dureeEntretien")
-    private Short evtdureeEntretien;
-    @OneToMany(mappedBy = "etrevtID")
+    @Column(name = "duree")
+    private String duree;
+    @Column(name = "dureeEntretien")
+    private Short dureeEntretien;
+    @OneToMany(mappedBy = "evtid")
     private Collection<Entretien> entretienCollection;
 
     public Evenement() {
     }
 
-    public Evenement(Short evtId) {
-        this.evtId = evtId;
+    public Evenement(Integer id) {
+        this.id = id;
     }
 
-    public Short getEvtId() {
-        return evtId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setEvtId(Short evtId) {
-        this.evtId = evtId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getEvtType() {
-        return evtType;
+    public String getTypeevt() {
+        return typeevt;
     }
 
-    public void setEvtType(String evtType) {
-        this.evtType = evtType;
+    public void setTypeevt(String typeevt) {
+        this.typeevt = typeevt;
     }
 
-    public Date getEvtDate() {
-        return evtDate;
+    public Date getDateevt() {
+        return dateevt;
     }
 
-    public void setEvtDate(Date evtDate) {
-        this.evtDate = evtDate;
+    public void setDateevt(Date dateevt) {
+        this.dateevt = dateevt;
     }
 
-    public String getEvtDuree() {
-        return evtDuree;
+    public String getDuree() {
+        return duree;
     }
 
-    public void setEvtDuree(String evtDuree) {
-        this.evtDuree = evtDuree;
+    public void setDuree(String duree) {
+        this.duree = duree;
     }
 
-    public Short getEvtdureeEntretien() {
-        return evtdureeEntretien;
+    public Short getDureeEntretien() {
+        return dureeEntretien;
     }
 
-    public void setEvtdureeEntretien(Short evtdureeEntretien) {
-        this.evtdureeEntretien = evtdureeEntretien;
+    public void setDureeEntretien(Short dureeEntretien) {
+        this.dureeEntretien = dureeEntretien;
     }
 
     @XmlTransient
@@ -118,7 +121,7 @@ public class Evenement implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (evtId != null ? evtId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -129,7 +132,7 @@ public class Evenement implements Serializable {
             return false;
         }
         Evenement other = (Evenement) object;
-        if ((this.evtId == null && other.evtId != null) || (this.evtId != null && !this.evtId.equals(other.evtId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -137,7 +140,7 @@ public class Evenement implements Serializable {
 
     @Override
     public String toString() {
-        return "com.polytech.ogas.Evenement[ evtId=" + evtId + " ]";
+        return "com.polytech.ogas.Evenement[ id=" + id + " ]";
     }
     
 }

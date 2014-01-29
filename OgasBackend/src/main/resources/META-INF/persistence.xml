@@ -2,17 +2,13 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="ogasBackend" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>com.polytech.ogasbackend.Entreprise</class>
-    <class>com.polytech.ogasbackend.Etudiant</class>
-    <class>com.polytech.ogasbackend.Personnecontact</class>
-    <class>com.polytech.ogasbackend.Entreprise_1</class>
     <class>com.polytech.ogas.Entretien</class>
-    <class>com.polytech.ogas.PersonneContact</class>
     <class>com.polytech.ogas.Evenement</class>
     <class>com.polytech.ogas.Salle</class>
     <class>com.polytech.ogas.Entreprise</class>
     <class>com.polytech.ogas.Utilisateur</class>
     <class>com.polytech.ogas.Etudiant</class>
+    <class>com.polytech.ogas.Personnecontact</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/projet2"/>

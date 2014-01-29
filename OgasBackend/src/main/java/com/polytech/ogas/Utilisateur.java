@@ -10,13 +10,15 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  *
@@ -33,13 +35,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Utilisateur.findByAdmin", query = "SELECT u FROM Utilisateur u WHERE u.admin = :admin"),
     @NamedQuery(name = "Utilisateur.findByLecture", query = "SELECT u FROM Utilisateur u WHERE u.lecture = :lecture"),
     @NamedQuery(name = "Utilisateur.findByEcriture", query = "SELECT u FROM Utilisateur u WHERE u.ecriture = :ecriture")})
+@XmlType(propOrder={"id","login","mdp","admin","lecture","ecriture"})
 public class Utilisateur implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
-    private Short id;
+    private Integer id;
     @Size(max = 2147483647)
     @Column(name = "login")
     private String login;
@@ -56,15 +59,15 @@ public class Utilisateur implements Serializable {
     public Utilisateur() {
     }
 
-    public Utilisateur(Short id) {
+    public Utilisateur(Integer id) {
         this.id = id;
     }
 
-    public Short getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Short id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

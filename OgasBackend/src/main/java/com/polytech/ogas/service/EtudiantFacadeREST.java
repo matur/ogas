@@ -9,10 +9,7 @@ package com.polytech.ogas.service;
 import com.polytech.ogas.Etudiant;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -43,20 +40,20 @@ public class EtudiantFacadeREST extends AbstractFacade<Etudiant> {
     @PUT
     @Path("edit/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void edit(@PathParam("id") Short id, Etudiant entity) {
+    public void edit(@PathParam("id") Integer id, Etudiant entity) {
         super.edit(entity);
     }
 
-    @DELETE
+    @GET
     @Path("remove/{id}")
-    public void remove(@PathParam("id") Short id) {
+    public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 
     @GET
     @Path("find/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Etudiant find(@PathParam("id") Short id) {
+    public Etudiant find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 

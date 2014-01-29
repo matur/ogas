@@ -10,8 +10,6 @@ import com.polytech.ogas.Entretien;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -28,10 +26,9 @@ import javax.ws.rs.core.MediaType;
  * @author epulapp
  */
 @Stateless
-@Path("/entretien")
+@Path("entretien")
 public class EntretienFacadeREST extends AbstractFacade<Entretien> {
     
-
     public EntretienFacadeREST() {
         super(Entretien.class);
     }
@@ -46,20 +43,20 @@ public class EntretienFacadeREST extends AbstractFacade<Entretien> {
     @PUT
     @Path("edit/{id}")
     @Consumes({MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Short id, Entretien entity) {
+    public void edit(@PathParam("id") Integer id, Entretien entity) {
         super.edit(entity);
     }
 
     @DELETE
     @Path("remove/{id}")
-    public void remove(@PathParam("id") Short id) {
+    public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 
     @GET
     @Path("find/{id}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public Entretien find(@PathParam("id") Short id) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Entretien find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
@@ -84,8 +81,7 @@ public class EntretienFacadeREST extends AbstractFacade<Entretien> {
     public String countREST() {
         return String.valueOf(super.count());
     }
-
-        
+    
     public ArrayList<Entretien> findAllByIdEvenement(short idEvenement)
     {
         ArrayList<Entretien> entretiens = new ArrayList<Entretien>();
@@ -95,5 +91,5 @@ public class EntretienFacadeREST extends AbstractFacade<Entretien> {
             entretiens.add((Entretien) entretien);
         }
         return entretiens;
-    }    
+    }
 }

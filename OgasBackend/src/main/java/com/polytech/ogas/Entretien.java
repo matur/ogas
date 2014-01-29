@@ -11,6 +11,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,8 +21,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  *
@@ -31,102 +33,102 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Entretien.findAll", query = "SELECT e FROM Entretien e"),
-    @NamedQuery(name = "Entretien.findByEtrId", query = "SELECT e FROM Entretien e WHERE e.etrId = :etrId"),
-    @NamedQuery(name = "Entretien.findByEvenementId", query = "SELECT e FROM Entretien e WHERE e.etrevtID = :etrevtID"),
-    @NamedQuery(name = "Entretien.findByEtrPriorite", query = "SELECT e FROM Entretien e WHERE e.etrPriorite = :etrPriorite"),
-    @NamedQuery(name = "Entretien.findByEtrHoraire", query = "SELECT e FROM Entretien e WHERE e.etrHoraire = :etrHoraire")})
+    @NamedQuery(name = "Entretien.findById", query = "SELECT e FROM Entretien e WHERE e.id = :id"),
+    @NamedQuery(name = "Entretien.findByPriorite", query = "SELECT e FROM Entretien e WHERE e.priorite = :priorite"),
+    @NamedQuery(name = "Entretien.findByHoraire", query = "SELECT e FROM Entretien e WHERE e.horaire = :horaire")})
+@XmlType(propOrder={"id","etuid","priorite","horaire","salleid","evtid","etuid","entid"})
 public class Entretien implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "etr_id")
-    private Short etrId;
-    @Column(name = "etr_priorite")
-    private Short etrPriorite;
-    @Column(name = "etr_horaire")
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "priorite")
+    private Short priorite;
+    @Column(name = "horaire")
     @Temporal(TemporalType.TIME)
-    private Date etrHoraire;
-    @JoinColumn(name = "etr_salleID", referencedColumnName = "salle_id")
+    private Date horaire;
+    @JoinColumn(name = "salleid", referencedColumnName = "id")
     @ManyToOne
-    private Salle etrsalleID;
-    @JoinColumn(name = "etr_evtID", referencedColumnName = "evt_id")
+    private Salle salleid;
+    @JoinColumn(name = "evtid", referencedColumnName = "id")
     @ManyToOne
-    private Evenement etrevtID;
-    @JoinColumn(name = "etr_etuID", referencedColumnName = "etu_id")
+    private Evenement evtid;
+    @JoinColumn(name = "etuid", referencedColumnName = "id")
     @ManyToOne
-    private Etudiant etretuID;
-    @JoinColumn(name = "etr_entID", referencedColumnName = "ent_id")
+    private Etudiant etuid;
+    @JoinColumn(name = "entid", referencedColumnName = "id")
     @ManyToOne
-    private Entreprise etrentID;
+    private Entreprise entid;
 
     public Entretien() {
     }
 
-    public Entretien(Short etrId) {
-        this.etrId = etrId;
+    public Entretien(Integer id) {
+        this.id = id;
     }
 
-    public Short getEtrId() {
-        return etrId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setEtrId(Short etrId) {
-        this.etrId = etrId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Short getEtrPriorite() {
-        return etrPriorite;
+    public Short getPriorite() {
+        return priorite;
     }
 
-    public void setEtrPriorite(Short etrPriorite) {
-        this.etrPriorite = etrPriorite;
+    public void setPriorite(Short priorite) {
+        this.priorite = priorite;
     }
 
-    public Date getEtrHoraire() {
-        return etrHoraire;
+    public Date getHoraire() {
+        return horaire;
     }
 
-    public void setEtrHoraire(Date etrHoraire) {
-        this.etrHoraire = etrHoraire;
+    public void setHoraire(Date horaire) {
+        this.horaire = horaire;
     }
 
-    public Salle getEtrsalleID() {
-        return etrsalleID;
+    public Salle getSalleid() {
+        return salleid;
     }
 
-    public void setEtrsalleID(Salle etrsalleID) {
-        this.etrsalleID = etrsalleID;
+    public void setSalleid(Salle salleid) {
+        this.salleid = salleid;
     }
 
-    public Evenement getEtrevtID() {
-        return etrevtID;
+    public Evenement getEvtid() {
+        return evtid;
     }
 
-    public void setEtrevtID(Evenement etrevtID) {
-        this.etrevtID = etrevtID;
+    public void setEvtid(Evenement evtid) {
+        this.evtid = evtid;
     }
 
-    public Etudiant getEtretuID() {
-        return etretuID;
+    public Etudiant getEtuid() {
+        return etuid;
     }
 
-    public void setEtretuID(Etudiant etretuID) {
-        this.etretuID = etretuID;
+    public void setEtuid(Etudiant etuid) {
+        this.etuid = etuid;
     }
 
-    public Entreprise getEtrentID() {
-        return etrentID;
+    public Entreprise getEntid() {
+        return entid;
     }
 
-    public void setEtrentID(Entreprise etrentID) {
-        this.etrentID = etrentID;
+    public void setEntid(Entreprise entid) {
+        this.entid = entid;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (etrId != null ? etrId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -137,7 +139,7 @@ public class Entretien implements Serializable {
             return false;
         }
         Entretien other = (Entretien) object;
-        if ((this.etrId == null && other.etrId != null) || (this.etrId != null && !this.etrId.equals(other.etrId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -145,7 +147,7 @@ public class Entretien implements Serializable {
 
     @Override
     public String toString() {
-        return "com.polytech.ogas.Entretien[ etrId=" + etrId + " ]";
+        return "com.polytech.ogas.Entretien[ id=" + id + " ]";
     }
     
 }
